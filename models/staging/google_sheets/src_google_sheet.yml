@@ -1,0 +1,45 @@
+version: 2
+
+sources:
+  - name: google_sheets
+    database: dev_bronze_db_alumno18
+    tables:
+      - name: budget
+        columns:
+          - name: _row
+            description: ""
+          - name: quantity
+            description: ""
+          - name: month
+            description: ""
+          - name: product_id
+            description: ""
+          - name: _fivetran_synced
+            description: ""
+
+      - name: fivetran_audit
+        columns:
+          - name: id
+            description: ""
+          - name: message
+            description: ""
+          - name: update_started
+            description: ""
+          - name: update_id
+            description: ""
+          - name: schema
+            description: ""
+          - name: table
+            description: ""
+          - name: start
+            description: ""
+          - name: done
+            description: ""
+          - name: rows_updated_or_inserted
+            description: ""
+          - name: status
+            description: ""
+          - name: progress
+            description: ""
+          - name: _fivetran_synced
+            description: ""
