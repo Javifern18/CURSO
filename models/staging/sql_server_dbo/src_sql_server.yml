@@ -7,12 +7,17 @@ sources:
       - name: addresses
         columns:
           - name: address_id
+            tests:
+              - unique
+              - not_null
             description: ""
           - name: country
             description: ""
           - name: state
             description: ""
           - name: zipcode
+            tests:
+              - positive_values
             description: ""
           - name: address
             description: ""
@@ -24,6 +29,9 @@ sources:
       - name: events
         columns:
           - name: event_id
+            tests:
+              - unique
+              - not_null
             description: ""
           - name: user_id
             description: ""
@@ -44,40 +52,46 @@ sources:
           - name: _fivetran_synced
             description: ""
 
-      - name: fivetran_audit
-        columns:
-          - name: id
-            description: ""
-          - name: message
-            description: ""
-          - name: update_started
-            description: ""
-          - name: update_id
-            description: ""
-          - name: schema
-            description: ""
-          - name: table
-            description: ""
-          - name: start
-            description: ""
-          - name: done
-            description: ""
-          - name: rows_updated_or_inserted
-            description: ""
-          - name: status
-            description: ""
-          - name: progress
-            description: ""
-          - name: _fivetran_synced
-            description: ""
+      #- name: fivetran_audit
+      #  columns:
+      #    - name: id
+      #      description: ""
+      #    - name: message
+      #      description: ""
+      #    - name: update_started
+      #      description: ""
+      #    - name: update_id
+      #      description: ""
+      #    - name: schema
+      #      description: ""
+      #    - name: table
+      #      description: ""
+      #    - name: start
+      #      description: ""
+      #    - name: done
+      #      description: ""
+      #    - name: rows_updated_or_inserted
+      #      description: ""
+      #    - name: status
+      #      description: ""
+      #    - name: progress
+      #      description: ""
+      #    - name: _fivetran_synced
+      #      description: ""
 
       - name: order_items
         columns:
           - name: order_id
+            tests:
+              - relationships:
+                  to: source('sql_server_dbo', 'orders')
+                  field: order_id
             description: ""
           - name: product_id
             description: ""
           - name: quantity
+            tests:
+              - positive_values
             description: ""
           - name: _fivetran_deleted
             description: ""
@@ -87,6 +101,9 @@ sources:
       - name: orders
         columns:
           - name: order_id
+            tests:
+              - unique
+              - not_null
             description: ""
           - name: created_at
             description: ""
@@ -120,10 +137,17 @@ sources:
       - name: products
         columns:
           - name: product_id
+            tests:
+              - unique
+              - not_null
             description: ""
           - name: price
+            tests:
+              - positive_values
             description: ""
           - name: inventory
+            tests:
+              - positive_values
             description: ""
           - name: name
             description: ""
@@ -135,10 +159,18 @@ sources:
       - name: promos
         columns:
           - name: promo_id
+            tests:
+              - unique
+              - not_null
             description: ""
           - name: status
+            tests:
+              - accepted_values:
+                  values: ['active', 'inactive']
             description: ""
           - name: discount
+            tests:
+              - positive_values
             description: ""
           - name: _fivetran_deleted
             description: ""
@@ -148,12 +180,17 @@ sources:
       - name: users
         columns:
           - name: user_id
+            tests:
+              - unique
+              - not_null
             description: ""
           - name: last_name
             description: ""
           - name: phone_number
-            description: ""
+            description: "Phone number es un varchar, test de positive values cuando se 'castee' a number"
           - name: total_orders
+            tests:
+              - positive_values
             description: ""
           - name: address_id
             description: ""
