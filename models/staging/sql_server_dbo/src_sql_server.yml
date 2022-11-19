@@ -108,8 +108,17 @@ sources:
           - name: created_at
             description: ""
           - name: promo_id
+#            tests:
+#              - relationships:
+#                  to: source('sql_server_dbo', 'promos')
+#                  field: promo_id
+# Poner este test en los stage cuando hayamos convertido los string vacíos en nulos !!!
             description: ""
           - name: shipping_service
+#            tests:
+#              - accepted_values:
+#                  values: ['ups','usps','fedex','dhl',null]
+# Poner este test en los stage cuando hayamos convertido los string vacíos en nulos !!!
             description: ""
           - name: shipping_cost
             description: ""
@@ -120,6 +129,9 @@ sources:
           - name: user_id
             description: ""
           - name: status
+            tests:
+              - accepted_values:
+                  values: ['delivered', 'shipped','preparing']
             description: ""
           - name: order_cost
             description: ""
