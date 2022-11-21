@@ -5,26 +5,26 @@ sources:
     database: dev_bronze_db_alumno18
     tables:
       - name: budget
-        columns:
+        columns: 
           - name: _row
             tests:
               - unique
               - not_null
-            description: ""
+            description: "Natural key de la tabla de presupuesto por mes y producto"
           - name: quantity
             tests:
               - positive_values
-            description: ""
+            description: "Cantidad a vender presupuestada para un producto en un determinado mes"
           - name: month
-            description: ""
+            description: "Mes al que corrresponde el presupuesto"
           - name: product_id
             tests:
               - relationships:
                   to: source('sql_server_dbo', 'products')
                   field: product_id
-            description: ""
+            description: "Producto al que corresponde el presupuesto"
           - name: _fivetran_synced
-            description: ""
+            description: "Timestamp del instante de carga con Fivetran"
 
     #  - name: fivetran_audit
     #    columns:

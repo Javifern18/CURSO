@@ -10,21 +10,21 @@ sources:
             tests:
               - unique
               - not_null
-            description: ""
+            description: "Natural key de la tabla de direcciones"
           - name: country
-            description: ""
+            description: "País al que pertenece la dirección"
           - name: state
-            description: ""
+            description: "Estado al que pertenece la dirección"
           - name: zipcode
             tests:
               - positive_values
-            description: ""
+            description: "Código postal al que pertenece la dirección"
           - name: address
-            description: ""
+            description: "Dirección concreta"
           - name: _fivetran_deleted
-            description: ""
+            description: "Indicador de si el registro ha sido borrado en el sistema transaccional"
           - name: _fivetran_synced
-            description: ""
+            description: "Timestamp del instante de carga con Fivetran"
 
       - name: events
         columns:
@@ -32,25 +32,25 @@ sources:
             tests:
               - unique
               - not_null
-            description: ""
+            description: "Natural key de la tabla de eventos"
           - name: user_id
-            description: ""
+            description: "Usuario que produce el evento"
           - name: order_id
-            description: ""
+            description: "Pedido al que corresponde el evento"
           - name: session_id
-            description: ""
+            description: "Identificador de sesión"
           - name: page_url
-            description: ""
+            description: "URL de la página a la que corresponde el evento"
           - name: created_at
-            description: ""
+            description: "Timestamp del instante en que se crea el evento"
           - name: event_type
-            description: ""
+            description: "Tipo de evento"
           - name: product_id
-            description: ""
+            description: "Producto asociado al evento"
           - name: _fivetran_deleted
-            description: ""
+            description: "Indicador de si el registro ha sido borrado en el sistema transaccional"
           - name: _fivetran_synced
-            description: ""
+            description: "Timestamp del instante de carga con Fivetran"
 
       #- name: fivetran_audit
       #  columns:
@@ -86,17 +86,17 @@ sources:
               - relationships:
                   to: source('sql_server_dbo', 'orders')
                   field: order_id
-            description: ""
+            description: "Identificador del pedido al que corresponden los items. Es la natural key compuesta junto con product_id"
           - name: product_id
-            description: ""
+            description: "Identificador de los productos por pedido. Es la natural key compuesta junto con order_id"
           - name: quantity
             tests:
               - positive_values
-            description: ""
+            description: "Cantidad de producto"
           - name: _fivetran_deleted
-            description: ""
+            description: "Indicador de si el registro ha sido borrado en el sistema transaccional"
           - name: _fivetran_synced
-            description: ""
+            description: "Timestamp del instante de carga con Fivetran"
 
       - name: orders
         columns:
@@ -104,47 +104,47 @@ sources:
             tests:
               - unique
               - not_null
-            description: ""
+            description: "Natural Key de la tabla de pedidos"
           - name: created_at
-            description: ""
+            description: "Timestamp del instante en que se hace el pedido"
           - name: promo_id
 #            tests:
 #              - relationships:
 #                  to: source('sql_server_dbo', 'promos')
 #                  field: promo_id
 # Poner este test en los stage cuando hayamos convertido los string vacíos en nulos !!!
-            description: ""
+            description: "Identificador de promoción correspondiente al pedido"
           - name: shipping_service
 #            tests:
 #              - accepted_values:
-#                  values: ['ups','usps','fedex','dhl',null]
+#                  values: ['ups','usps','fedex','dhl']
 # Poner este test en los stage cuando hayamos convertido los string vacíos en nulos !!!
-            description: ""
+            description: "Servicio de reparto correspondiente al pedido"
           - name: shipping_cost
-            description: ""
+            description: "Coste de envío correspondiente al pedido"
           - name: estimated_delivery_at
-            description: ""
+            description: "Instante de entrega estimado correspondiente al pedido"
           - name: address_id
-            description: ""
+            description: "Identificador de la dirección correspondiente al pedido"
           - name: user_id
-            description: ""
+            description: "Identificador del usuario correspondiente al pedido"
           - name: status
             tests:
               - accepted_values:
                   values: ['delivered', 'shipped','preparing']
-            description: ""
+            description: "Estado del paquete correspondiente al pedido"
           - name: order_cost
-            description: ""
+            description: "Coste del pedido sin costes de envío"
           - name: tracking_id
-            description: ""
+            description: "Identificador para el seguimiento correspondiente al pedido"
           - name: delivered_at
-            description: ""
+            description: "Timestamp correspondiente al instante de la entrega del pedido"
           - name: order_total
-            description: ""
+            description: "Coste total correspondiente al pedido incluyendo los costes de envío"
           - name: _fivetran_deleted
-            description: ""
+            description: "Indicador de si el registro ha sido borrado en el sistema transaccional"
           - name: _fivetran_synced
-            description: ""
+            description: "Timestamp del instante de carga con Fivetran"
 
       - name: products
         columns:
@@ -152,21 +152,21 @@ sources:
             tests:
               - unique
               - not_null
-            description: ""
+            description: "Natural key de la tabla de productos"
           - name: price
             tests:
               - positive_values
-            description: ""
+            description: "Precio correspondiente al producto"
           - name: inventory
             tests:
               - positive_values
-            description: ""
+            description: "Stock correspondiente al producto"
           - name: name
-            description: ""
+            description: "Nombre correspondiente al producto"
           - name: _fivetran_deleted
-            description: ""
+            description: "Indicador de si el registro ha sido borrado en el sistema transaccional"
           - name: _fivetran_synced
-            description: ""
+            description: "Timestamp del instante de carga con Fivetran"
 
       - name: promos
         columns:
@@ -174,20 +174,20 @@ sources:
             tests:
               - unique
               - not_null
-            description: ""
+            description: "Natural key de la tabla de promociones"
           - name: status
             tests:
               - accepted_values:
                   values: ['active', 'inactive']
-            description: ""
+            description: "Estado correspondiente a la promoción"
           - name: discount
             tests:
               - positive_values
-            description: ""
+            description: "Descuento correspondiente a la promoción"
           - name: _fivetran_deleted
-            description: ""
+            description: "Indicador de si el registro ha sido borrado en el sistema transaccional"
           - name: _fivetran_synced
-            description: ""
+            description: "Timestamp del instante de carga con Fivetran"
 
       - name: users
         columns:
@@ -195,26 +195,29 @@ sources:
             tests:
               - unique
               - not_null
-            description: ""
+            description: "Natural key de la tabla de usuarios"
           - name: last_name
-            description: ""
+            description: "Apellidos correspondientes al usuario"
           - name: phone_number
-            description: "Phone number es un varchar, test de positive values cuando se 'castee' a number"
+#            tests:
+#              - positive_values
+# Poner este test en los stage cuando hayamos convertido el phone_number en formato number (ahora es un varchar)!!!
+            description: "Teléfono de contacto correspondiente al usuario"
           - name: total_orders
             tests:
               - positive_values
-            description: ""
+            description: "Número total de pedidos correspondientes al usuario"
           - name: address_id
-            description: ""
+            description: "Identificador de la dirección correspondiente al usuario"
           - name: created_at
-            description: ""
+            description: "Timestamp del instante en que se creo el usuario"
           - name: email
-            description: ""
+            description: "E-mail de contacto correspondiente al usuario"
           - name: updated_at
-            description: ""
+            description: "Timestamp del instante en que se modificó el usuario"
           - name: first_name
-            description: ""
+            description: "Nombre correspondiente al usuario"
           - name: _fivetran_deleted
-            description: ""
+            description: "Indicador de si el registro ha sido borrado en el sistema transaccional"
           - name: _fivetran_synced
-            description: ""
+            description: "Timestamp del instante de carga con Fivetran"
