@@ -2,7 +2,12 @@ version: 2
 
 sources:
   - name: my_sources
-    database: dev_bronze_db_alumno18
+    database: |  
+        {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno18
+        {%- elif target.name == 'ci' -%} dev_bronze_db_alumno18
+        {%- elif target.name == 'pro'-%} pro_bronze_db_alumno18  
+        {%- else -%} {{target.database}}_bronze_db_alumno18
+        {%- endif -%}
     tables:
       - name: uszips
         columns:
