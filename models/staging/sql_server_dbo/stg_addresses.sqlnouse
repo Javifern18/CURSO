@@ -13,4 +13,3 @@ stg_addresses as (
 )
 
 select * from stg_addresses
-    
