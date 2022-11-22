@@ -4,6 +4,7 @@ with stg_addresses as (
     country,
     state,
     zipcode,
+    md5(zipcode) as zipcode_id,
     address,
     _fivetran_deleted,
     _fivetran_synced 

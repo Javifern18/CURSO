@@ -1,4 +1,4 @@
-with stg_budget as (
+with base_budget as (
     select md5(_row) as budget_id,
     _row as NK_budget_id,
     quantity as estimated_quantity,
@@ -11,4 +11,4 @@ with stg_budget as (
 )
 
 select *
-from stg_budget
+from base_budget
