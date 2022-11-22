@@ -1,0 +1,49 @@
+version: 2
+
+sources:
+  - name: my_sources
+    database: |  
+        {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno18
+        {%- elif target.name == 'ci' -%} dev_bronze_db_alumno18
+        {%- elif target.name == 'pro'-%} pro_bronze_db_alumno18  
+        {%- else -%} {{target.database}}_bronze_db_alumno18
+        {%- endif -%}
+    tables:
+      - name: uszips
+        columns:
+          - name: zip
+            description: "Códigos postales de Estados Unidos"
+          - name: lat
+            description: "Latitud a la que corresponde el código ZIP"
+          - name: lng
+            description: "Longitud a la que corresponde el código ZIP"
+          - name: city
+            description: "Ciudad a la que corresponde el código ZIP"
+          - name: state_id
+            description: "Identificador del estado al que corresponde el código ZIP"
+          - name: state_name
+            description: "Nombre del estado al que corresponde el código ZIP"
+          - name: zcta
+            description: "ZIP Code Tabulation Area"
+          - name: parent_zcta
+            description: "Parent ZIP Code Tabulation Area"
+          - name: population
+            description: "Población correspondiente al código ZIP"
+          - name: density
+            description: "Densidad de población correspondiente al código ZIP"
+          - name: county_fips
+            description: "FIPS código del condado"
+          - name: county_name
+            description: "Nombre del condado"
+          - name: county_weights
+            description: "Pesos de los condados (sobre 100)"
+          - name: county_names_all
+            description: "Nombres de los condados correspondientes al código ZIP"
+          - name: county_fips_all
+            description: "FIPS correspondientes al código ZIP"
+          - name: imprecise
+            description: "Impreciso"
+          - name: military
+            description: "Militar"
+          - name: timezone
+            description: "Zona horaria"

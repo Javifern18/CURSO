@@ -1,0 +1,62 @@
+version: 2
+
+sources:
+  - name: google_sheets
+    database: |  
+        {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno18
+        {%- elif target.name == 'ci' -%} dev_bronze_db_alumno18
+        {%- elif target.name == 'pro'-%} pro_bronze_db_alumno18  
+        {%- else -%} {{target.database}}_bronze_db_alumno18
+        {%- endif -%}
+    tables:
+      - name: budget
+        columns: 
+          - name: _row
+            tests:
+              - unique
+              - not_null
+            description: "Natural key de la tabla de presupuesto por mes y producto"
+          - name: quantity
+            tests:
+              - positive_values
+            description: "Cantidad a vender presupuestada para un producto en un determinado mes"
+          - name: month
+            description: "Mes al que corrresponde el presupuesto"
+          - name: product_id
+            tests:
+              - relationships:
+                  to: source('sql_server_dbo', 'products')
+                  field: product_id
+            description: "Producto al que corresponde el presupuesto"
+          - name: _fivetran_synced
+            description: "Timestamp del instante de carga con Fivetran"
+
+    #  - name: fivetran_audit
+    #    columns:
+    #      - name: id
+    #        tests:
+    #          - unique
+    #          - not_null          
+    #        description: ""
+    #      - name: message
+    #        description: ""
+    #      - name: update_started
+    #        description: ""
+    #      - name: update_id
+    #        description: ""
+    #      - name: schema
+    #        description: ""
+    #      - name: table
+    #        description: ""
+    #      - name: start
+    #        description: ""
+    #      - name: done
+    #        description: ""
+    #      - name: rows_updated_or_inserted
+    #        description: ""
+    #      - name: status
+    #        description: ""
+    #      - name: progress
+    #        description: ""
+    #      - name: _fivetran_synced
+    #        description: ""

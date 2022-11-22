@@ -1,0 +1,2 @@
+"zip","lat","lng","city","state_id","state_name","zcta","parent_zcta","population","density","county_fips","county_name","county_weights","county_names_all","county_fips_all","imprecise","military","timezone"
+"00601","18.18027","-66.75266","Adjuntas","PR","Puerto Rico","TRUE","","16773","100.5","72001","Adjuntas","{""72001"": 98.73, ""72141"": 1.27}","Adjuntas|Utuado","72001|72141","FALSE","FALSE","America/Puerto_Rico"
