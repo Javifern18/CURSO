@@ -8,9 +8,9 @@ with
 ),
 
     final as (
-        select *
-            from base_orders o join seed_shipping_service_description s
-                on o.shipping_service = s.shipping_service
+        select * exclude(shipping_service_name)
+            from base_orders join seed_shipping_service_description
+                on shipping_service = shipping_service_name
 )
 
 select * from final
