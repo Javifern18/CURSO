@@ -14,6 +14,7 @@ with base_orders as (
     order_cost,
     md5(tracking_id) as tracking_id,
     tracking_id as NK_tracking_id,
+    created_at,
     delivered_at,
     order_total,
     _fivetran_deleted,

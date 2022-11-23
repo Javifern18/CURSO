@@ -12,3 +12,5 @@ final as (
 )
 
 select * from final
+
+-- Hay que seleccionar u.address_id y no el *
