@@ -7,7 +7,7 @@ stg_addresses as (
 ),
 
 final as (
-    select md5(concat(user_id,u.address_id)) as shipping_address_id,
+    select {{ dbt_utils.surrogate_key(['user_id', 'u.address_id']) }} as shipping_address_id,
     user_id,
     u.address_id,
     zipcode
