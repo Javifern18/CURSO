@@ -1,4 +1,4 @@
-with stg_orders as (
+with base_orders as (
     select md5(order_id) as order_id,
     order_id as NK_order_id,
     md5(nullif(promo_id,'')) as promo_id,
@@ -23,4 +23,4 @@ with stg_orders as (
 )
 
 select *
-from stg_orders
+from base_orders

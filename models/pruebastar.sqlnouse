@@ -1,0 +1,2 @@
+select {{ dbt_utils.star(from=ref('base_orders'), except=["order_id"]) }}
+from {{ ref('base_orders') }}
