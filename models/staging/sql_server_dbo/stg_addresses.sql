@@ -3,34 +3,46 @@ with
 
     base_uszips as (select * from {{ ref("base_uszips") }}),
 
-    final as (
+    base_uszips_2 as (select * from {{ ref("base_uszips_2") }}), 
+
+    addresses_uszips as (
         select
-            address_id,
-            nk_address_id,
-            country,
-            state,
+            a.address_id,
+            a.nk_address_id,
+            a.country,
+            a.state,
             a.zipcode,
-            address,
-            _fivetran_deleted,
-            _fivetran_synced,
-            latitude,
-            longitude,
-            city_name,
-            zip_code_tab_area,
-            parent_zcta,
-            population,
-            density,
-            county_fips,
-            county_name,
-            county_weights,
-            county_names_all,
-            county_fips_all,
-            imprecise,
-            military,
-            timezone
+            z2.zipcode_type,
+            a.address,
+            a._fivetran_deleted,
+            a._fivetran_synced,
+--            z.latitude,
+            z2.latitude,
+--            z.longitude,
+            z2.longitude,
+            z2.primary_city,
+            z.city_name,
+            z2.acceptable_cities_included,
+            z2.unacceptable_cities,
+            z.zip_code_tab_area,
+            z.parent_zcta,
+            z.population,
+            z2.estimated_population,
+            z.density,
+            z.county_fips,
+            z2.county,
+            z.county_name,
+            z.county_weights,
+            z.county_names_all,
+            z.county_fips_all,
+            z.imprecise,
+            z.military,
+--            z.timezone,
+            z2.timezone
 
         from base_addresses a
-        left join base_uszips u on a.zipcode = u.zipcode
+        left join base_uszips z on a.zipcode = z.zipcode
+        left join base_uszips_2 z2 on a.zipcode = z2.zipcode
     )
 
-select * from final
+    select * from addresses_uszips
