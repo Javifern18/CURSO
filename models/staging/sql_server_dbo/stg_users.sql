@@ -1,5 +1,5 @@
 with stg_users as (
-    select md5(user_id) as user_id,
+    select {{ dbt_utils.surrogate_key(['user_id', 'updated_at']) }} as user_id,
     user_id as NK_user_id,
     first_name,
     last_name,
