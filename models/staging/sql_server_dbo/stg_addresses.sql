@@ -3,46 +3,57 @@ with
 
     base_uszips as (select * from {{ ref("base_uszips") }}),
 
-    base_uszips_2 as (select * from {{ ref("base_uszips_2") }}), 
+    base_uszips_2 as (select * from {{ ref("base_uszips_2") }}),
 
     addresses_uszips as (
-        select
+        select 
             a.address_id,
             a.nk_address_id,
             a.country,
             a.state,
             a.zipcode,
-            z2.zipcode_type,
+            z2.zipcode_type,   
+            z.zip_code_tab_area,
+            z.parent_zcta,
             a.address,
             a._fivetran_deleted,
             a._fivetran_synced,
---            z.latitude,
-            z2.latitude,
---            z.longitude,
-            z2.longitude,
-            z2.primary_city,
-            z.city_name,
+            case 
+                when z2.latitude is null then z.latitude
+                else z2.latitude
+                end as latitude,
+            case 
+                when z2.longitude is null then z.longitude
+                else z2.longitude
+                end as longitude,
+            case
+                when z2.primary_city is null then z.city_name
+                else z2.primary_city
+                end as primary_city,
+            case
+                when z2.estimated_population is null then z.population
+--              when z2.estimated_population=0 then z.population
+                else z2.estimated_population
+                end as estimated_population,
+            z.density,
             z2.acceptable_cities_included,
             z2.unacceptable_cities,
-            z.zip_code_tab_area,
-            z.parent_zcta,
-            z.population,
-            z2.estimated_population,
-            z.density,
+            case
+                when z.county_name is null then z2.county
+                else z.county_name
+                end as county,
             z.county_fips,
-            z2.county,
-            z.county_name,
-            z.county_weights,
+            z.county_fips_all,  
             z.county_names_all,
-            z.county_fips_all,
-            z.imprecise,
-            z.military,
---            z.timezone,
-            z2.timezone
+            z.county_weights,         
+            case 
+                when z2.timezone is null then z.timezone
+                else z2.timezone
+                end as timezone
 
         from base_addresses a
         left join base_uszips z on a.zipcode = z.zipcode
         left join base_uszips_2 z2 on a.zipcode = z2.zipcode
-    )
+)
 
-    select * from addresses_uszips
+select * from addresses_uszips
