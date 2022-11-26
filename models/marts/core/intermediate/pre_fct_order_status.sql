@@ -1,8 +1,6 @@
--- ACCUMULATING SNAPSHOT
 
-with fct_order_status_accumulating_snapshot as (
-
-    select
+with order_status_info as (
+    select 
         order_id,
         shipping_address_id,
         shipping_service_id,
@@ -13,11 +11,11 @@ with fct_order_status_accumulating_snapshot as (
         delivered_at,
         delivery_info,
         days_early,
-        days_of_delay
-
-    from {{ ref('pre_fct_order_status') }}
-    where order_status_valid_to is null
-
+        days_of_delay,
+        dbt_valid_from as order_status_valid_from,
+        dbt_valid_to as order_status_valid_to
+    
+    from {{ ref('order_status_snapshot') }}
 )
 
-select * from fct_order_status_accumulating_snapshot
+select * from order_status_info
