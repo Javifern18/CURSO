@@ -12,7 +12,7 @@ sources:
       - name: uszips
         columns:
           - name: zip
-            description: "Códigos postales de Estados Unidos"
+            description: "Código postal"
           - name: lat
             description: "Latitud a la que corresponde el código ZIP"
           - name: lng
@@ -44,6 +44,40 @@ sources:
           - name: imprecise
             description: "Impreciso"
           - name: military
-            description: "Militar"
+            description: "De tipo militar"
           - name: timezone
             description: "Zona horaria"
+
+      - name: uszips_2
+        description: ""
+        columns:
+          - name: zip
+            description: "Código postal"
+          - name: type
+            description: "Tipo al que corresponde (único, standard, PO-Box o militar)"
+          - name: decommissioned
+            description: "Decomisionado"
+          - name: primary_city
+            description: "Principal ciudad a la que corresponde el código ZIP"
+          - name: acceptable_cities
+            description: "Ciudades aceptadas"
+          - name: unacceptable_cities
+            description: "Ciudades no aceptadas"
+          - name: state
+            description: "Nombre del estado al que corresponde el código ZIP"
+          - name: county
+            description: "Nombre del condado al que corresponde el código ZIP"
+          - name: timezone
+            description: "Zona horaria"
+          - name: area_codes
+            description: "Area-code correspondiente"
+          - name: world_region
+            description: "Región del mundo"
+          - name: country
+            description: "País"
+          - name: latitude
+            description: "Latitud a la que corresponde el código ZIP"
+          - name: longitude
+            description: "Longitud a la que corresponde el código ZIP"
+          - name: irs_estimated_population
+            description: "Población estimada por el Internal Revenue Service"
