@@ -1,3 +1,8 @@
+{{
+    config(
+        materialized='incremental'
+    )
+}}
 
 with order_status_info as (
     select 
@@ -19,3 +24,11 @@ with order_status_info as (
 )
 
 select * from order_status_info
+
+{% if is_incremental() %}
+
+  where order_status_valid_from > (select max(order_status_valid_from) from {{ this }})
+
+{% endif %}
+
+-- Nico: añade condición... or order_status_valid_to > (select max(order_status_valid_from) from {{ this }}) ???

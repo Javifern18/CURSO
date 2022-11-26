@@ -27,7 +27,6 @@ dim_users as (
         a.country,
         u.user_created_at,
         u._fivetran_deleted,
-        u._fivetran_synced,
         u.dbt_valid_from as user_valid_from,
         u.dbt_valid_to as user_valid_to
 
@@ -39,6 +38,6 @@ select * from dim_users
 
 {% if is_incremental() %}
 
-  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+  where user_valid_from > (select max(user_valid_from) from {{ this }})
 
 {% endif %}
