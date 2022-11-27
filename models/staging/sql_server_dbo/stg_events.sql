@@ -9,6 +9,7 @@ with stg_events as (
     session_id as NK_session_id,
     page_url,
     created_at as event_created_at,
+    md5(event_type) as event_type_id,
     event_type,
     md5(product_id) as product_id,
     product_id as NK_product_id,

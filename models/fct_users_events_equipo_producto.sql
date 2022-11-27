@@ -1,8 +1,8 @@
 with stg_events as (
-    select * from {{ ref('stg_events') }} 
+    select * from {{ ref('fct_events') }} 
 ),
 stg_users as (
-    select * from {{ref('stg_users')}}
+    select * from {{ref('dim_users')}}
 ),
 
 int_session_events_users as (
@@ -10,9 +10,9 @@ int_session_events_users as (
     e.event_created_at,
     u.user_id,
     e.product_id,
-    {{column_values_to_metrics(ref('stg_events'), 'event_type')}}
+    {{column_values_to_metrics(ref('fct_events'), 'event_type')}}
 
-    from stg_events e join stg_users u 
+    from fct_events e join dim_users u 
         on e.user_id = u.user_id
     {{dbt_utils.group_by(4)}}
 )
