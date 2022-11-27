@@ -8,7 +8,6 @@ with
     addresses_uszips as (
         select 
             a.address_id,
-            a.nk_address_id,
             a.country,
             a.state,
             a.zipcode,

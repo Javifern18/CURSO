@@ -15,5 +15,4 @@ with dim_promos as (
 
 )
 
-select *
-from dim_promos
+select * from dim_promos

@@ -23,6 +23,6 @@ select * from products_snapshot
 
 {% if is_incremental() %}
 
-  where product_valid_from > (select max(product_valid_from) from {{ this }})
+  where stock_valid_from > (select max(stock_valid_from) from {{ this }})
 
 {% endif %}

@@ -18,8 +18,8 @@ products_by_order as (
         o.order_cost,
         o.shipping_cost,
         o.order_total,
---        o.created_at,
-        o.NK_tracking_id    
+--        o.order_created_at,
+        o.tracking_id    
     
     from orders_info o join order_items_info oi
         on o.order_id = oi.order_id        
