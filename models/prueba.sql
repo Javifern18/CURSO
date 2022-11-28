@@ -1,0 +1,1 @@
+{{obtener_date_id(ref('stg_events'),'event_date')}}
