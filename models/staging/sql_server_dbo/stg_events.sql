@@ -33,8 +33,8 @@ final_events as (
         o.order_id,
         e.session_id,
         e.page_url,
-        to_date(e.event_created_at) as event_date,
-        to_time(e.event_created_at) as event_created_at,
+        e.id_fecha,
+        e.event_created_at,
         e.event_type,
         p.product_id,
         e._fivetran_synced

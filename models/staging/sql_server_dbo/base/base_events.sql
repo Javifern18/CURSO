@@ -7,7 +7,9 @@ with events as (
         product_id as NK_product_id,
         nullif(order_id,'') as NK_order_id,
         page_url,
-        created_at as event_created_at,
+        year(to_date(created_at))*10000+month(to_date(created_at))*100+day(to_date(created_at)) as id_fecha,
+        to_date(created_at) as event_date,        
+        to_time(created_at) as event_created_at,
         event_type,
         _fivetran_deleted,
         _fivetran_synced
@@ -24,6 +26,8 @@ fivetran_not_deleted as (
         NK_product_id,
         NK_order_id,
         page_url,
+        id_fecha,
+        event_date,
         event_created_at,
         event_type,
         _fivetran_synced
