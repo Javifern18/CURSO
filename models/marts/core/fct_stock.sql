@@ -1,5 +1,5 @@
 -- Tabla de hechos de tipo SNAPSHOT
--- ¿¿Cómo cargar esto de mes en mes??
+-- ¿¿Cómo cargar esto de mes en mes?? ¿¿Con una condición sobre la fecha?
 
 {{
     config(
