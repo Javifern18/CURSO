@@ -4,7 +4,6 @@ with promos as (
         promo_name,
         promo_status,
         discount,
-        _fivetran_deleted,
         _fivetran_synced 
     
     from {{ ref('base_promos') }}

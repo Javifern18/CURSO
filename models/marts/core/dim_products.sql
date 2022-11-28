@@ -10,7 +10,6 @@ with products_snapshot as (
         product_id,
         product_name,
         product_price,
-        _fivetran_deleted,
         dbt_valid_from as product_valid_from,
         dbt_valid_to as product_valid_to
     

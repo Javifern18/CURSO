@@ -26,7 +26,6 @@ dim_users as (
         a.state,
         a.country,
         u.user_created_at,
-        u._fivetran_deleted,
         u.dbt_valid_from as user_valid_from,
         u.dbt_valid_to as user_valid_to
 

@@ -21,7 +21,6 @@ final as (
     a.latitude,
     a.estimated_population,
     a.density,
-    a._fivetran_deleted,
     a._fivetran_synced
 
 

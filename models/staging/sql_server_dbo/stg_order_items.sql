@@ -24,7 +24,6 @@ final_order_items as (
         o.order_id,
         p.product_id,
         oi.product_quantity,
-        oi._fivetran_deleted,
         oi._fivetran_synced
 
     from order_items oi left join orders o

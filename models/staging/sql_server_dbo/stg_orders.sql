@@ -53,7 +53,6 @@ final_orders as (
         o.order_created_at,
         o.delivered_at,
         o.order_total,
-        o._fivetran_deleted,
         o._fivetran_synced    
          
         from orders o 

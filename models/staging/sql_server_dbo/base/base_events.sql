@@ -13,6 +13,22 @@ with events as (
         _fivetran_synced
     
     from {{ source("sql_server_dbo", "events") }}
+),
+
+fivetran_not_deleted as (
+    select
+        event_id,
+        NK_event_id,
+        NK_user_id,
+        session_id,
+        NK_product_id,
+        NK_order_id,
+        page_url,
+        event_created_at,
+        event_type,
+        _fivetran_synced
+    
+    from events where NK_event_id not in (select NK_event_id from events where _fivetran_deleted=true)
 )
 
-select * from events
+select * from fivetran_not_deleted

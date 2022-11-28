@@ -9,8 +9,7 @@ with stg_events as (
         event_created_at,
 --        event_type_id,
         event_type,
-        _fivetran_synced,
-        _fivetran_deleted
+        _fivetran_synced
     
     from {{ ref('stg_events') }}
 )

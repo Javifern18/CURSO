@@ -21,7 +21,6 @@ final_users as (
         u.email,
         u.user_created_at,
         u.user_updated_at,
-        u._fivetran_deleted,
         u._fivetran_synced
     
     from users u left join addresses a

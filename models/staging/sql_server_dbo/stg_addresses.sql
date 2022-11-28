@@ -15,7 +15,6 @@ with
             z.zip_code_tab_area,
             z.parent_zcta,
             a.address,
-            a._fivetran_deleted,
             a._fivetran_synced,
             case 
                 when z2.latitude is null then z.latitude

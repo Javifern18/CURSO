@@ -5,7 +5,6 @@ with products as (
         product_name,
         product_price,
         stock,
-        _fivetran_deleted,
         _fivetran_synced
 
     

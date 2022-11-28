@@ -36,7 +36,6 @@ final_events as (
         e.event_created_at,
         e.event_type,
         p.product_id,
-        e._fivetran_deleted,
         e._fivetran_synced
 
     from 
