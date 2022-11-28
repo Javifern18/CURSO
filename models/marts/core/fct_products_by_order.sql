@@ -8,6 +8,7 @@ order_items_info as (
 
 products_by_order as (
     select
+        {{ dbt_utils.surrogate_key(['o.order_id','oi.order_items_id']) }} as products_by_order_id,
         o.order_id,
         oi.product_id,
         oi.product_quantity, 
