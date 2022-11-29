@@ -9,6 +9,21 @@ with date_spine as (
 
 ),
 
+dim_date as (
+    select
+        year(date_day)*10000+month(date_day)*100+day(date_day) as date_id,
+        year(date_day) as year,
+        month(date_day) as month,
+        day(date_day) as day 
+
+    from date_spine
+)
+
+select * from dim_date
+
+
+
+/*
 renamed as (
     select
         case 
@@ -31,3 +46,4 @@ select
     year
 
 from renamed
+*/

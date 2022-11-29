@@ -6,7 +6,7 @@ with stg_events as (
         order_id,   -- Degenerate dimension key
         session_id,
         page_url,
-        id_fecha,
+        date_id,
         event_created_at,
 --        event_type_id,
         event_type,
