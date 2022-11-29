@@ -6,7 +6,13 @@ with dim_day_parts as (
         {% for i in range(0,13) %}
             {% if i in range(0,7) %}
                 union
-                select dateadd(hour,{{i}},to_time('00:00:00')),'night'             
+                select dateadd(hour,{{i}},to_time('00:00:00')),'night'
+
+
+            {% elif i in range(3,7) %}
+                union
+                select dateadd(hour,{{i}},to_time('00:00:00')),'niswdswqadqwht'                     
+
             {% else %}
                 union
                 select dateadd(hour,{{i}},to_time('00:00:00')),'morning'
