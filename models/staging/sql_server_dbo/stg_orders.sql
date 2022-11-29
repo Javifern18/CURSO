@@ -44,15 +44,18 @@ final_orders as (
         s.shipping_service_name,
         s.shipping_service_description,
         o.shipping_cost,
-        o.estimated_delivery_at,
+        o.estimated_delivery_at_date_id,
+        o.estimated_delivery_at_time,
         a.address_id,
         u.user_id,
         o.order_status,
         o.order_cost,
         o.tracking_id,
         o.order_created_at,
-        o.delivered_at,
+        o.delivered_at_date_id,
+        o.delivered_at_time,
         o.order_total,
+        o.delivered_at_date - o.estimated_delivery_at_date as days_early_or_delay,
         o._fivetran_synced    
          
         from orders o 

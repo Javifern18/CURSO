@@ -33,7 +33,7 @@ final_events as (
         o.order_id,
         e.session_id,
         e.page_url,
-        e.date_id,
+        e.event_date_id,
         e.event_created_at,
         e.event_type,
         p.product_id,

@@ -18,9 +18,9 @@ with order_info as (
         order_created_at,
         tracking_id,
         order_status,
-        estimated_delivery_at,
-        delivered_at,
-        to_date(delivered_at) - to_date(estimated_delivery_at) as days_early_or_delay,
+        estimated_delivery_at_date_id,
+        delivered_at_date_id,
+        days_early_or_delay,
         _fivetran_synced    
     
     from {{ ref('stg_orders') }}
@@ -35,12 +35,12 @@ order_info_delay as (
         order_created_at,
         tracking_id,
         order_status,
-        estimated_delivery_at,
-        delivered_at, 
+        estimated_delivery_at_date_id,
+        delivered_at_date_id, 
         case  
             when days_early_or_delay = 0 then 'Correct estimated delivery'
             when days_early_or_delay > 0 then 'Delayed delivery'
-            when delivered_at is null then 'Not delivered'  
+            when delivered_at_date_id is null then 'Not delivered'  
             else 'Early delivery'
         end as delivery_info,
         case
