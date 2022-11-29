@@ -1,19 +1,30 @@
-with stg_users as (
-    select {{ dbt_utils.surrogate_key(['user_id', 'updated_at']) }} as user_id,
-    user_id as NK_user_id,
-    first_name,
-    last_name,
-    replace(phone_number,'-','')::number as phone_number,
-    md5(address_id) as address_id,
-    address_id as NK_address_id,
-    email,
-    created_at as user_created_at,
-    updated_at as user_updated_at,
-    _fivetran_deleted,
-    _fivetran_synced
+with users as (
+    select * from {{ ref('base_users') }}
+),
 
-    from {{ source("sql_server_dbo", "users") }}
+addresses as (
+    select
+        address_id,
+        NK_address_id 
+    
+    from {{ ref('base_addresses') }}
+),
+
+final_users as (
+    select
+        u.user_id,
+        u.NK_user_id,
+        u.first_name,
+        u.last_name,
+        replace(u.phone_number,'-','')::number as phone_number,
+        a.address_id,
+        u.email,
+        u.user_created_at,
+        u.user_updated_at,
+        u._fivetran_synced
+    
+    from users u left join addresses a
+        on u.NK_address_id = a.NK_address_id
 )
 
-select *
-from stg_users
+select * from final_users

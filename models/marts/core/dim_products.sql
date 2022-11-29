@@ -10,9 +10,6 @@ with products_snapshot as (
         product_id,
         product_name,
         product_price,
-        stock,
-        _fivetran_deleted,
-        _fivetran_synced,
         dbt_valid_from as product_valid_from,
         dbt_valid_to as product_valid_to
     
@@ -23,6 +20,6 @@ select * from products_snapshot
 
 {% if is_incremental() %}
 
-  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+  where product_valid_from > (select max(product_valid_from) from {{ this }})
 
 {% endif %}

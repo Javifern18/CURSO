@@ -13,7 +13,6 @@ sources:
         columns:
           - name: address_id
             tests:
-              - unique
               - not_null
             description: "Natural key de la tabla de direcciones"
           - name: country
@@ -35,7 +34,6 @@ sources:
         columns:
           - name: event_id
             tests:
-              - unique
               - not_null
             description: "Natural key de la tabla de eventos"
           - name: user_id
@@ -107,7 +105,6 @@ sources:
         columns:
           - name: order_id
             tests:
-              - unique
               - not_null
             description: "Natural Key de la tabla de pedidos"
           - name: created_at
@@ -155,7 +152,6 @@ sources:
         columns:
           - name: product_id
             tests:
-              - unique
               - not_null
             description: "Natural key de la tabla de productos"
           - name: price
@@ -177,7 +173,6 @@ sources:
         columns:
           - name: promo_id
             tests:
-              - unique
               - not_null
             description: "Natural key de la tabla de promociones"
           - name: status
@@ -198,7 +193,6 @@ sources:
         columns:
           - name: user_id
             tests:
-              - unique
               - not_null
             description: "Natural key de la tabla de usuarios"
           - name: last_name

@@ -1,15 +1,35 @@
-with stg_order_items as (
-    select md5(concat(order_id,product_id)) as order_items_id,
-    md5(order_id) as order_id,
-    order_id as NK_order_id,
-    md5(product_id) as product_id,
-    product_id as NK_product_id,
-    quantity as product_quantity,
-    _fivetran_deleted,
-    _fivetran_synced
+with order_items as (
+    select * from {{ ref('base_order_items') }}
+),
 
-    from {{ source("sql_server_dbo", "order_items") }}
+orders as (
+    select
+        order_id,
+        NK_order_id
+    
+    from {{ ref('base_orders') }}
+),
+
+products as (
+    select
+        product_id,
+        NK_product_id
+    
+    from {{ ref('base_products') }}
+),
+
+final_order_items as (
+    select
+        oi.order_items_id,
+        o.order_id,
+        p.product_id,
+        oi.product_quantity,
+        oi._fivetran_synced
+
+    from order_items oi left join orders o
+        on oi.NK_order_id = o.NK_order_id
+                        left join products p
+        on oi.NK_product_id = p. NK_product_id    
 )
 
-select *
-from stg_order_items
+select * from final_order_items

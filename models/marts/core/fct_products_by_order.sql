@@ -8,6 +8,7 @@ order_items_info as (
 
 products_by_order as (
     select
+        {{ dbt_utils.surrogate_key(['o.order_id','oi.order_items_id']) }} as products_by_order_id,
         o.order_id,
         oi.product_id,
         oi.product_quantity, 
@@ -18,8 +19,8 @@ products_by_order as (
         o.order_cost,
         o.shipping_cost,
         o.order_total,
---        o.created_at,
-        o.NK_tracking_id    
+--        o.order_created_at,
+        o.tracking_id    
     
     from orders_info o join order_items_info oi
         on o.order_id = oi.order_id        

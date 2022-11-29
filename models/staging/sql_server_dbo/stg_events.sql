@@ -1,22 +1,51 @@
-with stg_events as (
-    select md5(event_id) as event_id,
-    event_id as NK_event_id,
-    md5(user_id) as user_id,
-    user_id as NK_user_id,
-    md5(nullif(order_id,'')) as order_id,
-    nullif(order_id,'') as NK_order_id,
-    md5(session_id) as session_id,
-    session_id as NK_session_id,
-    page_url,
-    created_at as event_created_at,
-    event_type,
-    md5(product_id) as product_id,
-    product_id as NK_product_id,
-    _fivetran_deleted,
-    _fivetran_synced
+with events as (
+    select * from {{ ref('base_events') }}
+),
+
+users as (
+    select 
+        user_id,
+        NK_user_id
     
-    from {{ source("sql_server_dbo", "events") }}
+    from {{ ref('base_users') }}
+),
+
+orders as (
+    select 
+        order_id,
+        NK_order_id
+    
+    from {{ ref('base_orders') }}
+),
+
+products as (
+    select 
+        product_id,
+        NK_product_id
+    
+    from {{ ref('base_products') }}
+),
+
+final_events as (
+    select
+        e.event_id,
+        u.user_id,
+        o.order_id,
+        e.session_id,
+        e.page_url,
+        e.event_date_id,
+        e.event_created_at,
+        e.event_type,
+        p.product_id,
+        e._fivetran_synced
+
+    from 
+        events e left join users u
+            on e.NK_user_id = u.NK_user_id
+                 left join orders o
+            on e.NK_order_id = o.NK_order_id
+                 left join products p
+            on e.NK_product_id = p.NK_product_id  
 )
 
-select *
-from stg_events
+select * from final_events

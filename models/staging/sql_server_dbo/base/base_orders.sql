@@ -1,27 +1,52 @@
-with base_orders as (
-    select md5(order_id) as order_id,
-    order_id as NK_order_id,
-    md5(nullif(promo_id,'')) as promo_id,
-    nullif(promo_id,'') as NK_promo_id,
-    nullif(shipping_service,'') as shipping_service,
-    shipping_cost,
-    estimated_delivery_at,
-    md5(address_id) as address_id,
-    address_id as NK_address_id,
-    md5(user_id) as user_id,
-    user_id as NK_user_id,
-    status as order_status,
-    order_cost,
-    md5(tracking_id) as tracking_id,
-    tracking_id as NK_tracking_id,
-    created_at,
-    delivered_at,
-    order_total,
-    _fivetran_deleted,
-    _fivetran_synced
+with orders as (
+    select 
+        {{ dbt_utils.surrogate_key(['order_id','status','_fivetran_synced']) }} as order_id,  -- ¿Merece la pena surrogate key con _fivetran_synced?     
+        order_id as NK_order_id,
+        nullif(promo_id,'') as NK_promo_id,
+        nullif(shipping_service,'') as shipping_service,
+        shipping_cost,
+        year(to_date(estimated_delivery_at))*10000+month(to_date(estimated_delivery_at))*100+day(to_date(estimated_delivery_at)) as estimated_delivery_at_date_id,
+        to_date(estimated_delivery_at) as estimated_delivery_at_date,
+        to_time(estimated_delivery_at) as estimated_delivery_at_time,
+        address_id as NK_address_id,
+        user_id as NK_user_id,
+        status as order_status,
+        order_cost,
+        nullif(tracking_id,'') as tracking_id,   -- ¿Estaría bien crear una surrogate key para tracking_id?
+        created_at as order_created_at,
+        year(to_date(delivered_at))*10000+month(to_date(delivered_at))*100+day(to_date(delivered_at)) as delivered_at_date_id,
+        to_date(delivered_at) as delivered_at_date,
+        to_time(delivered_at) as delivered_at_time,
+        order_total,
+        _fivetran_deleted,
+        _fivetran_synced
 
     from {{ source("sql_server_dbo", "orders") }}
+),
+
+fivetran_not_deleted as (
+    select
+        order_id,   
+        NK_order_id,
+        NK_promo_id,
+        shipping_service,
+        shipping_cost,
+        estimated_delivery_at_date_id,
+        estimated_delivery_at_date,
+        estimated_delivery_at_time,
+        NK_address_id,
+        NK_user_id,
+        order_status,
+        order_cost,
+        tracking_id,  
+        order_created_at,
+        delivered_at_date_id,
+        delivered_at_date,
+        delivered_at_time,
+        order_total,
+        _fivetran_synced
+    
+    from orders where NK_order_id not in (select NK_order_id from orders where _fivetran_deleted=true)
 )
 
-select *
-from base_orders
+select * from fivetran_not_deleted

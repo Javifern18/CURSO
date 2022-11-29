@@ -1,14 +1,25 @@
-with base_budget as (
-    select md5(_row) as budget_id,
-    _row as NK_budget_id,
-    quantity as estimated_quantity,
-    month::date as budget_date,
-    md5(product_id) as product_id,
-    product_id as NK_product_id,
-    _fivetran_synced 
+with budget as (
+    select * from {{ ref('base_budget') }} 
+),
 
-    from {{ source("google_sheets", "budget") }}
+products as (
+    select
+        product_id,
+        NK_product_id
+    
+    from {{ ref('base_products') }}
+),
+
+final_budget as (
+    select 
+        b.budget_id,
+        b.estimated_quantity,
+        b.budget_date,
+        p.product_id,
+        b._fivetran_synced 
+
+    from budget b left join products p
+        on b.NK_product_id = p.NK_product_id   
 )
 
-select *
-from base_budget
+select * from final_budget
