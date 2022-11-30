@@ -1,7 +1,7 @@
 with order_items as (
     select
-        {{ dbt_utils.surrogate_key(['order_id','product_id']) }} as order_items_id,
-        concat(order_id, product_id) as NK_order_items_id, 
+        {{ dbt_utils.surrogate_key(['order_id','product_id','_fivetran_synced']) }} as order_items_id,
+        {{ dbt_utils.surrogate_key(['order_id','product_id']) }} as NK_order_items_id, 
         order_id as NK_order_id,
         product_id as NK_product_id,
         quantity as product_quantity,
@@ -13,7 +13,8 @@ with order_items as (
 
 fivetran_not_deleted as (
     select
-        order_items_id, 
+        order_items_id,
+        NK_order_items_id, 
         NK_order_id,
         NK_product_id,
         product_quantity,

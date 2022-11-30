@@ -8,6 +8,7 @@ with products_snapshot as (
 
     select 
         product_id,
+        NK_product_id,
         product_name,
         product_price,
         dbt_valid_from as product_valid_from,

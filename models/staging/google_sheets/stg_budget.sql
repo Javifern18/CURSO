@@ -11,10 +11,12 @@ products as (
 ),
 
 final_budget as (
-    select 
+    select
+        b.NK_budget_id, 
         b.budget_id,
         b.estimated_quantity,
         b.budget_date,
+        p.NK_product_id,
         p.product_id,
         b._fivetran_synced 
 

@@ -10,6 +10,7 @@ with products_snapshot as (
 
     select 
         product_id,
+        NK_product_id,
         stock,
         month(dbt_valid_from) as mes,
         dbt_valid_from as stock_valid_from,

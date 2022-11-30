@@ -21,8 +21,11 @@ products as (
 final_order_items as (
     select
         oi.order_items_id,
+        oi.NK_order_items_id,
         o.order_id,
+        o.NK_order_id,
         p.product_id,
+        p.NK_product_id,
         oi.product_quantity,
         oi._fivetran_synced
 

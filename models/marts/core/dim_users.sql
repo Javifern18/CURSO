@@ -15,6 +15,7 @@ users_addresses as (
 dim_users as (
   select 
         u.user_id,
+        u.NK_user_id,
         u.first_name,
         u.last_name,
         u.phone_number,

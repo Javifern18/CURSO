@@ -2,7 +2,7 @@ with budget_info as (
     select
         budget_id,
         month(budget_date) as month,
-        year(budget_date) as year, 
+        year(budget_date) as year,
         product_id,
         estimated_quantity    
 
@@ -12,6 +12,7 @@ with budget_info as (
 
 product_info as (
     select
+        NK_product_id, 
         product_id,
         product_price
     
@@ -22,7 +23,8 @@ final_budget as (
     select
         b.budget_id,
         b.month,
-        b.year, 
+        b.year,
+        p.NK_product_id, 
         b.product_id,
         b.estimated_quantity,
         b.estimated_quantity*p.product_price as estimated_profit

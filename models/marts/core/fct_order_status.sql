@@ -7,6 +7,7 @@
 with order_status_info as (
     select 
         order_id,
+        NK_order_id,
         shipping_address_id,
         shipping_service_id,
         order_created_at,
@@ -33,9 +34,7 @@ order_status_updated as (
         order_status,
         estimated_delivery_at_date_id,
         delivered_at_date_id,
-        delivery_info,
-        days_early,
-        days_of_delay,
+        {{ dbt_utils.surrogate_key(['delivery_info', 'days_early','days_of_delay']) }} as delivery_info_id,
         order_status_valid_from
     
     from order_status_info
