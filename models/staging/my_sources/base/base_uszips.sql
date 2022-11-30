@@ -7,7 +7,6 @@ with source as (
 renamed as (
 
     select
-        md5(zip) as zipcode_id,
         zip as zipcode,
         lat as latitude,
         lng as longitude,

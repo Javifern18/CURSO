@@ -19,6 +19,7 @@ final_users as (
         replace(u.phone_number,'-','')::number as phone_number,
         a.address_id,
         u.email,
+        u.user_created_at_date_id,
         u.user_created_at,
         u.user_updated_at,
         u._fivetran_synced

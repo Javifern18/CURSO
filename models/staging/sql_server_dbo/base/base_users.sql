@@ -7,7 +7,9 @@ with users as (
         replace(phone_number,'-','')::number as phone_number,
         address_id as NK_address_id,
         email,
-        created_at as user_created_at,
+        year(to_date(created_at))*10000+month(to_date(created_at))*100+day(to_date(created_at)) as user_created_at_date_id,
+        to_date(created_at) as user_created_at_date,
+        to_time(created_at) as user_created_at,
         updated_at as user_updated_at,
         _fivetran_deleted,
         _fivetran_synced
@@ -24,6 +26,8 @@ fivetran_not_deleted as (
         phone_number,
         NK_address_id,
         email,
+        user_created_at_date_id,
+        user_created_at_date,
         user_created_at,
         user_updated_at,
         _fivetran_synced

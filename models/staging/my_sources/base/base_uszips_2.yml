@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: base_uszips_2
+    description: ""
+    columns:
+      - name: zipcode
+        tests:
+          - unique
+        description: ""
+
+      - name: zipcode_type
+        description: ""
+
+      - name: decommissioned
+        description: ""
+
+      - name: primary_city
+        description: ""
+
+      - name: acceptable_cities_included
+        description: ""
+
+      - name: unacceptable_cities
+        description: ""
+
+      - name: state
+        description: ""
+
+      - name: county
+        description: ""
+
+      - name: area_codes_included
+        description: ""
+
+      - name: timezone
+        description: ""
+
+      - name: world_region
+        description: ""
+
+      - name: country
+        description: ""
+
+      - name: latitude
+        description: ""
+
+      - name: longitude
+        description: ""
+
+      - name: estimated_population
+        description: ""

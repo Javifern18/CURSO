@@ -1,0 +1,61 @@
+version: 2
+
+models:
+  - name: base_uszips
+    description: ""
+    columns:
+      - name: zipcode
+        tests:
+          - unique
+        description: ""
+
+      - name: latitude
+        description: ""
+
+      - name: longitude
+        description: ""
+
+      - name: city_name
+        description: ""
+
+      - name: state_id
+        description: ""
+
+      - name: state_name
+        description: ""
+
+      - name: zip_code_tab_area
+        description: ""
+
+      - name: parent_zcta
+        description: ""
+
+      - name: population
+        description: ""
+
+      - name: density
+        description: ""
+
+      - name: county_fips
+        description: ""
+
+      - name: county_name
+        description: ""
+
+      - name: county_weights
+        description: ""
+
+      - name: county_names_all
+        description: ""
+
+      - name: county_fips_all
+        description: ""
+
+      - name: imprecise
+        description: ""
+
+      - name: military
+        description: ""
+
+      - name: timezone
+        description: ""
