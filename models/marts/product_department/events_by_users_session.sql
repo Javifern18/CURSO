@@ -10,7 +10,7 @@ events_by_user_session as (
  --       {{ dbt_utils.surrogate_key(['e.session_id','u.user_id','e.event_created_at']) }} as events_by_user_session_id,   ?????
         e.session_id,
         e.event_date_id,
-        e.event_created_at,
+        e.event_created_at_id,
         u.user_id,
         e.product_id,
         {{column_values_to_metrics(ref('fct_events'), 'event_type')}}

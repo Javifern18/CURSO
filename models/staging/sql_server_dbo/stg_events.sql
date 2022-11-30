@@ -37,7 +37,7 @@ final_events as (
         e.session_id,
         e.page_url,
         e.event_date_id,
-        e.event_created_at,
+        e.event_created_at_id,
         e.event_type,
         p.NK_product_id,
         p.product_id,

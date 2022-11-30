@@ -8,7 +8,8 @@ with events as (
         nullif(order_id,'') as NK_order_id,
         page_url,
         year(to_date(created_at))*10000+month(to_date(created_at))*100+day(to_date(created_at)) as event_date_id,
-        to_date(created_at) as event_date,        
+        to_date(created_at) as event_date,
+        hour(created_at)*24*60+minute(created_at)*60+second(created_at) as event_created_at_id,        
         to_time(created_at) as event_created_at,
         event_type,
         _fivetran_deleted,
@@ -28,6 +29,7 @@ fivetran_not_deleted as (
         page_url,
         event_date_id,
         event_date,
+        event_created_at_id,
         event_created_at,
         event_type,
         _fivetran_synced

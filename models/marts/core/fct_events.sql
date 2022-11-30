@@ -7,7 +7,7 @@ with stg_events as (
         session_id,
         page_url,
         event_date_id,
-        event_created_at,
+        event_created_at_id,
 --        event_type_id,
         event_type,
         _fivetran_synced

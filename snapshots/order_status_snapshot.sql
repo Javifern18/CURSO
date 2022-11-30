@@ -15,11 +15,14 @@ with order_info as (
         NK_order_id,
         address_id as shipping_address_id,
         shipping_service_id,
-        order_created_at,
+        order_created_at_date_id,
+        order_created_at_id,
         tracking_id,
         order_status,
         estimated_delivery_at_date_id,
+        estimated_delivery_at_id,
         delivered_at_date_id,
+        delivered_at_id,
         days_early_or_delay,
         _fivetran_synced    
     
@@ -32,11 +35,14 @@ order_info_delay as (
         NK_order_id,
         shipping_address_id,
         shipping_service_id,
-        order_created_at,
+        order_created_at_date_id,
+        order_created_at_id,
         tracking_id,
         order_status,
         estimated_delivery_at_date_id,
-        delivered_at_date_id, 
+        estimated_delivery_at_id,
+        delivered_at_date_id,
+        delivered_at_id,
         case  
             when days_early_or_delay = 0 then 'Correct estimated delivery'
             when days_early_or_delay > 0 then 'Delayed delivery'

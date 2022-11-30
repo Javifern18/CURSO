@@ -1,10 +1,3 @@
-{{
-  config(
-    materialized='table',
-    transient=false
-  )
-}}
-
 with
     base_addresses as (select * from {{ ref("base_addresses") }}),
 
