@@ -44,6 +44,7 @@ models:
         {%- elif target.name == 'pro'-%} pro_silver_db_alumno18  
         {%- else -%} {{target.database}}_silver_db_alumno18
         {%- endif -%}
+      tags: ['SILVER']
       google_sheets:
         +schema: google_sheets
       sql_server_dbo:
@@ -51,6 +52,7 @@ models:
       
     marts:
       +materialized: table
+      +transient: false
       +database: |  
         {%- if  target.name == 'user_dev' -%} dev_gold_db_alumno18  
         {%- elif target.name == 'ci' -%} dev_gold_db_alumno18 
