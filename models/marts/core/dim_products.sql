@@ -5,7 +5,7 @@
     )
 }}
 
-with products_snapshot as (   
+with products as (   
 
     select 
         product_id,
@@ -16,9 +16,12 @@ with products_snapshot as (
         product_and_stock_valid_to as product_valid_to
     
     from {{ ref('stg_products') }}
+
+    union
+    select '0',null,'None product', null,to_timestamp(0),null
 )
 
-select * from products_snapshot
+select * from products
 
 {% if is_incremental() %}
 
