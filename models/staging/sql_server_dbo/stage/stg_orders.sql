@@ -1,5 +1,5 @@
 with orders as (
-    select * from {{ ref("base_orders") }}
+    select * from {{ ref('base_orders_snapshot') }}
 ),
 
 seed_shipping_service_description as (
@@ -8,7 +8,7 @@ seed_shipping_service_description as (
         ,shipping_service_name
         ,shipping_service_description 
 
-    from {{ ref("seed_shipping_service_description") }}
+    from {{ ref('seed_shipping_service_description') }}
 ),
 
 promos as (
@@ -32,7 +32,7 @@ users as (
         user_id,
         NK_user_id
     
-    from {{ ref('base_users') }}
+    from {{ ref('base_users_snapshot') }}
 ),
 
 final_orders as (
@@ -60,6 +60,8 @@ final_orders as (
         o.delivered_at_id,
         o.order_total,
         o.delivered_at_date - o.estimated_delivery_at_date as days_early_or_delay,
+        o.dbt_valid_from as order_status_valid_from,
+        o.dbt_valid_to as order_status_valid_to,
         o._fivetran_synced    
          
         from orders o 

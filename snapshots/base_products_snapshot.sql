@@ -1,3 +1,15 @@
+{% snapshot base_products_snapshot %}
+
+{{
+    config(
+      unique_key='NK_product_id',
+      strategy='timestamp',
+      updated_at='_fivetran_synced',
+      invalidate_hard_deletes=True,
+      tag=['SILVER']
+    )
+}}
+
 with products as (
     select 
         {{ dbt_utils.surrogate_key(['product_id', 'name','price']) }} as product_id,
@@ -25,3 +37,5 @@ fivetran_not_deleted as (
 )
 
 select * from fivetran_not_deleted
+
+{% endsnapshot %}

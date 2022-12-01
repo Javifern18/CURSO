@@ -75,7 +75,7 @@ models:
     marts:
       +materialized: table
       +docs:
-        node_color: "gold"
+        node_color: "#D1A100"
       +transient: false
       +database: |  
         {%- if  target.name == 'user_dev' -%} dev_gold_db_alumno18  
@@ -86,6 +86,11 @@ models:
       tags: ['GOLD']
       core:
         +schema: core
+        
+        intermediate:
+          +docs:
+            node_color: "#E05800"
+          tags: ['Intermediates']
         
 snapshots:
   +sql_header: "alter session set timezone = 'Europe/Madrid';alter session set week_start = 7;"

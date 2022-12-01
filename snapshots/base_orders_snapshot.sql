@@ -1,3 +1,15 @@
+{% snapshot base_orders_snapshot %}
+
+{{
+    config(
+      unique_key='NK_order_id',
+      strategy='timestamp',
+      updated_at='_fivetran_synced',
+      invalidate_hard_deletes=True,
+      tags=['SILVER']
+    )
+}}
+
 with orders as (
     select 
         {{ dbt_utils.surrogate_key(['order_id','status','_fivetran_synced']) }} as order_id,  -- ¿Merece la pena surrogate key con _fivetran_synced?     
@@ -60,3 +72,5 @@ fivetran_not_deleted as (
 )
 
 select * from fivetran_not_deleted
+
+{% endsnapshot %}

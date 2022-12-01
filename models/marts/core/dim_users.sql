@@ -1,11 +1,12 @@
 {{
     config(
-        materialized='incremental'
+        materialized='incremental',
+      tags=['incremental']    
     )
 }}
 
 with users_snapshot as (
-      select * from {{ ref('users_snapshot') }}
+      select * from {{ ref('stg_users') }}
 ),
 
 users_addresses as (
@@ -27,8 +28,8 @@ dim_users as (
         a.state,
         a.country,
         u.user_created_at,
-        u.dbt_valid_from as user_valid_from,
-        u.dbt_valid_to as user_valid_to
+        u.user_valid_from,
+        u.user_valid_to
 
   from users_snapshot u left join users_addresses a
     on u.address_id = a.address_id

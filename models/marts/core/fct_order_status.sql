@@ -1,6 +1,7 @@
 {{
     config(
-        materialized='incremental'
+        materialized='incremental',
+        tags=['incremental']    
     )
 }}
 
@@ -21,10 +22,10 @@ with order_status_info as (
         delivery_info,
         days_early,
         days_of_delay,
-        dbt_valid_from as order_status_valid_from,
-        dbt_valid_to as order_status_valid_to
+        order_status_valid_from,
+        order_status_valid_to
     
-    from {{ ref('order_status_snapshot') }}
+    from {{ ref('int_order_status') }}
 ),
 
 order_status_updated as (

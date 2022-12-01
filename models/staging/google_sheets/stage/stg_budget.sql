@@ -7,7 +7,7 @@ products as (
         product_id,
         NK_product_id
     
-    from {{ ref('base_products') }}
+    from {{ ref('base_products_snapshot') }}
 ),
 
 final_budget as (

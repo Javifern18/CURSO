@@ -7,7 +7,7 @@ users as (
         user_id,
         NK_user_id
     
-    from {{ ref('base_users') }}
+    from {{ ref('base_users_snapshot') }}
 ),
 
 orders as (
@@ -15,7 +15,7 @@ orders as (
         order_id,
         NK_order_id
     
-    from {{ ref('base_orders') }}
+    from {{ ref('base_orders_snapshot') }}
 ),
 
 products as (
@@ -23,7 +23,7 @@ products as (
         product_id,
         NK_product_id
     
-    from {{ ref('base_products') }}
+    from {{ ref('base_products_snapshot') }}
 ),
 
 final_events as (

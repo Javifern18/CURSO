@@ -5,7 +5,7 @@ with delivery_info as (
         days_early,
         days_of_delay
     
-    from {{ ref('order_status_snapshot') }}
+    from {{ ref('int_order_status') }}
 )
 
 select distinct * from delivery_info

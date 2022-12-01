@@ -1,5 +1,5 @@
 with users as (
-    select * from {{ ref('base_users') }}
+    select * from {{ ref('base_users_snapshot') }}
 ),
 
 addresses as (
@@ -21,7 +21,8 @@ final_users as (
         u.email,
         u.user_created_at_date_id,
         u.user_created_at,
-        u.user_updated_at,
+        u.dbt_valid_from as user_valid_from,
+        u.dbt_valid_to as user_valid_to,
         u._fivetran_synced
     
     from users u left join addresses a

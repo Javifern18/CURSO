@@ -1,14 +1,3 @@
-{% snapshot order_status_snapshot %}
-
-{{
-    config(
-      unique_key='NK_order_id',
-      strategy='timestamp',
-      updated_at='_fivetran_synced',
-      invalidate_hard_deletes=True,
-    )
-}}
-
 with order_info as (
     select
         order_id,
@@ -24,6 +13,8 @@ with order_info as (
         delivered_at_date_id,
         delivered_at_id,
         days_early_or_delay,
+        order_status_valid_from,
+        order_status_valid_to,
         _fivetran_synced    
     
     from {{ ref('stg_orders') }}
@@ -57,11 +48,11 @@ order_info_delay as (
             when days_early_or_delay > 0 then days_early_or_delay
             else null
         end as days_of_delay,
+        order_status_valid_from,
+        order_status_valid_to,
         _fivetran_synced 
 
     from order_info
 )
 
 select * from order_info_delay
-
-{% endsnapshot %}

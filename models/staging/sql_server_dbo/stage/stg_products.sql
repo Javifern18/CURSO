@@ -5,10 +5,12 @@ with products as (
         product_name,
         product_price,
         stock,
+        dbt_valid_from as product_and_stock_valid_from,
+        dbt_valid_to as product_and_stock_valid_to,
         _fivetran_synced
 
     
-    from {{ ref('base_products') }}
+    from {{ ref('base_products_snapshot') }}
 )
 
 select * from products

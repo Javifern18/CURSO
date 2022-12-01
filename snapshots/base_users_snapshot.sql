@@ -1,3 +1,16 @@
+{% snapshot base_users_snapshot %}
+
+{{
+    config(
+      unique_key='NK_user_id',
+      strategy='timestamp',
+      updated_at='user_updated_at',
+      invalidate_hard_deletes=True,
+      tags=['SILVER']      
+    )
+}}
+
+
 with users as (
     select 
         {{ dbt_utils.surrogate_key(['user_id', 'updated_at']) }} as user_id,
@@ -36,3 +49,5 @@ fivetran_not_deleted as (
 )
 
 select * from fivetran_not_deleted
+
+{% endsnapshot %}

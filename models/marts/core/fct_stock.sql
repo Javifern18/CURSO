@@ -12,11 +12,11 @@ with products_snapshot as (
         product_id,
         NK_product_id,
         stock,
-        month(dbt_valid_from) as mes,
-        dbt_valid_from as stock_valid_from,
-        dbt_valid_to as stock_valid_to
+        month(product_and_stock_valid_from) as mes,
+        product_and_stock_valid_from as stock_valid_to,
+        product_and_stock_valid_to as stock_valid_from
     
-    from {{ ref('products_snapshot') }}
+    from {{ ref('stg_products') }}
 )
 
 select * from products_snapshot

@@ -46,3 +46,6 @@ from
 )
 
 select * from info_total_orders
+
+
+-- select count(distinct NK_product_id) as numb_of_diff_products from {{ ref('fct_products_by_order') }} group by NK_user_id
