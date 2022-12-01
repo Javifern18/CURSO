@@ -15,6 +15,7 @@ products_by_order as (
         oi.NK_product_id,
         oi.product_quantity, 
         o.promo_id,
+        o.NK_promo_id,
         o.user_id,
         o.NK_user_id,
         o.address_id as shipping_address_id,

@@ -1,7 +1,7 @@
 with promos as (
     select
-       {{ dbt_utils.surrogate_key(['promo_id','_fivetran_synced']) }} as promo_id,  -- ¿Merece la pena surrogate key con _fivetran_synced?   
-        md5(promo_id) as NK_promo_id,
+        {{ dbt_utils.surrogate_key(['promo_id','_fivetran_synced']) }} as promo_id,
+        {{ dbt_utils.surrogate_key(['promo_id'])}} as NK_promo_id,
         promo_id as promo_name,
         status as promo_status,
         discount,

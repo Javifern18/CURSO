@@ -2,7 +2,8 @@
 
 {{
     config(
-        materialized='incremental'
+        materialized='incremental',
+        tags=['incremental'] 
     )
 }}
 
