@@ -13,4 +13,17 @@ with addresses as (
 
 ),
 
-{{borra_fivetran_deleted_1('addresses','NK_address_id')}}
+fivetran_not_deleted as (
+    select
+        address_id,        
+        NK_address_id,
+        country,
+        state,
+        zipcode,
+        address,
+        _fivetran_synced 
+    
+    from addresses where NK_address_id not in (select NK_address_id from addresses where _fivetran_deleted=true)
+)
+
+select * from fivetran_not_deleted
