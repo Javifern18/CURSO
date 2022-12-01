@@ -5,6 +5,8 @@ with dim_promos as (
         promo_name,
         promo_status,
         discount,
+        promo_valid_from,
+        promo_valid_to,
         _fivetran_synced
     
     from {{ ref('stg_promos') }}

@@ -16,7 +16,7 @@ promos as (
         promo_id,
         NK_promo_id
     
-    from {{ ref('base_promos') }}
+    from {{ ref('base_promos_snapshot') }}
 ),
 
 addresses as (

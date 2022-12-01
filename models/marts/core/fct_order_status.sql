@@ -31,6 +31,7 @@ with order_status_info as (
 order_status_updated as (
     select
         order_id,
+        NK_order_id,
         shipping_address_id,
         shipping_service_id,
         order_created_at_date_id,
@@ -55,6 +56,3 @@ select * from order_status_updated
   where order_status_valid_from > (select max(order_status_valid_from) from {{ this }})
 
 {% endif %}
-
--- Nico: añade condición... or order_status_valid_to > (select max(order_status_valid_from) from {{ this }}) ???
--- ¿¿No se puede quitar de alguna manera el campo de order_status_valid_from de manera que siga siendo incremental??

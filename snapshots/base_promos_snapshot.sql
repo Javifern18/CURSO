@@ -1,3 +1,15 @@
+{% snapshot base_promos_snapshot %}
+
+{{
+    config(
+      unique_key='NK_promo_id',
+      strategy='timestamp',
+      updated_at='_fivetran_synced',
+      invalidate_hard_deletes=True,
+      tags=['SILVER']
+    )
+}}
+
 with promos as (
     select
         {{ dbt_utils.surrogate_key(['promo_id','_fivetran_synced']) }} as promo_id,
@@ -24,3 +36,5 @@ fivetran_not_deleted as (
 )
 
 select * from fivetran_not_deleted
+
+{% endsnapshot %}
