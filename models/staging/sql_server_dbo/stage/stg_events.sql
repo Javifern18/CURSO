@@ -23,7 +23,7 @@ products as (
         product_id,
         NK_product_id
     
-    from {{ ref('base_products_snapshot') }}
+    from {{ ref('base_products') }}
 ),
 
 final_events as (

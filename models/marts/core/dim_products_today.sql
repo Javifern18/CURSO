@@ -1,7 +1,7 @@
 -- Dimensión con la información actual de los productos a día de hoy
 -- ¿En principio no la hago incremental porque no será tan grande como la dimensión histórica?
 
-with historical_products_dimension as (   
+with products as (   
 
     select 
         product_id,
@@ -15,4 +15,4 @@ with historical_products_dimension as (
     where product_valid_to is null
 )
 
-select * from historical_products_dimension
+select * from products
