@@ -6,7 +6,7 @@
       strategy='timestamp',
       updated_at='user_updated_at',
       invalidate_hard_deletes=True,
-      tags=['SILVER']      
+      tags=['SILVER','Bases','Snapshot'],
     )
 }}
 

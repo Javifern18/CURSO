@@ -6,7 +6,7 @@
         unique_key='NK_product_id',
         check_cols=['stock'],
         invalidate_hard_deletes=True,
-        tag=['SILVER']
+        tags=['SILVER','Stages','Snapshot'],
     )
 }}
 

@@ -103,5 +103,4 @@ snapshots:
         {%- elif target.name == 'pro'-%} pro_silver_db_alumno18  
         {%- else -%} {{target.database}}_silver_db_alumno18
         {%- endif -%}
-  tags: ['SNAPSHOTS']
   +target_schema: snapshots
