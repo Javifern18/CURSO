@@ -14,8 +14,8 @@ with products_snapshot as (
         NK_product_id,
         stock,
         month(product_and_stock_valid_from) as mes,
-        product_and_stock_valid_from as stock_valid_to,
-        product_and_stock_valid_to as stock_valid_from
+        product_and_stock_valid_from as stock_valid_from,
+        product_and_stock_valid_to as stock_valid_to
     
     from {{ ref('stg_products') }}
 )

@@ -27,7 +27,7 @@ products_by_order as (
         o.tracking_id
 --        o._fivetran_synced 
 --        oi._fivetran_synced
--- HACER INCREMENTAL CON USANDO _FIVETRAN_SYNCED            
+-- HACER INCREMENTAL USANDO _FIVETRAN_SYNCED            
     
     from orders_info o join order_items_info oi
         on o.order_id = oi.order_id        
