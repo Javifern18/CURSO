@@ -22,6 +22,7 @@ with users as (
         email,
         year(to_date(created_at))*10000+month(to_date(created_at))*100+day(to_date(created_at)) as user_created_at_date_id,
         to_date(created_at) as user_created_at_date,
+        {{timestamp_to_time_id('created_at')}} as user_created_at_id,
         to_time(created_at) as user_created_at,
         updated_at as user_updated_at,
         _fivetran_deleted,
@@ -41,6 +42,7 @@ fivetran_not_deleted as (
         email,
         user_created_at_date_id,
         user_created_at_date,
+        user_created_at_id,
         user_created_at,
         user_updated_at,
         _fivetran_synced

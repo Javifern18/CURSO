@@ -21,7 +21,7 @@ final_users as (
         a.NK_address_id,
         u.email,
         u.user_created_at_date_id,
-        u.user_created_at,
+        u.user_created_at_id,
         u.dbt_valid_from as user_valid_from,
         u.dbt_valid_to as user_valid_to,
         u._fivetran_synced

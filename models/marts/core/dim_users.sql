@@ -27,7 +27,6 @@ dim_users as (
         a.county,
         a.state,
         a.country,
-        u.user_created_at,
         u.user_valid_from,
         u.user_valid_to
 
