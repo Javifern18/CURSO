@@ -25,7 +25,7 @@ info_total_orders as (
         u.city,
         u.county,
         u.state,
-        u.user_created_at,
+--        u.user_created_at_id,
         u.user_valid_from,
         u.user_valid_to,
         count(distinct o.order_id) as numb_of_total_orders,
@@ -41,7 +41,7 @@ from
             left join promos p
         on o.promo_id = p.promo_id
 
-    {{dbt_utils.group_by(13)}}
+    {{dbt_utils.group_by(12)}}
         order by NK_user_id
 )
 
