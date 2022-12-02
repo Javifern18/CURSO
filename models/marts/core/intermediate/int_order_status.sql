@@ -1,8 +1,10 @@
+-- ¿Efímero?
+
 with order_info as (
     select
         order_id,
         NK_order_id,
-        address_id as shipping_address_id,
+        shipping_address_id,
         shipping_service_id,
         order_created_at_date_id,
         order_created_at_id,
@@ -52,7 +54,7 @@ order_info_delay as (
         order_status_valid_to,
         _fivetran_synced 
 
-    from order_info
+    from order_info where order_status_valid_to is null
 )
 
 select * from order_info_delay

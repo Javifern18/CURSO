@@ -21,8 +21,8 @@ promos as (
 
 addresses as (
     select
-        address_id,
-        NK_address_id
+        address_id as shipping_address_id,
+        NK_address_id as NK_shipping_address_id
     
     from {{ ref('base_addresses') }}
 ),
@@ -47,8 +47,8 @@ final_orders as (
         o.shipping_cost,
         o.estimated_delivery_at_date_id,
         o.estimated_delivery_at_id,
-        a.address_id,
-        a.NK_address_id,
+        a.shipping_address_id,
+        a.NK_shipping_address_id,
         u.NK_user_id,
         u.user_id,
         o.order_status,
@@ -70,7 +70,7 @@ final_orders as (
                 left join promos p
             on o.NK_promo_id = p.NK_promo_id
                 left join addresses a
-            on o.NK_address_id = a.NK_address_id
+            on o.NK_address_id = a.NK_shipping_address_id
                 left join users u
             on o.NK_user_id = u.NK_user_id
 )

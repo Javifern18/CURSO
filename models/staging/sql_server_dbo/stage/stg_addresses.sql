@@ -14,7 +14,7 @@ with
             a.zipcode,
             z2.zipcode_type,   
             z.zip_code_tab_area,
-            z.parent_zcta,
+--            z.parent_zcta,
             a.address,
             a._fivetran_synced,
             case 
@@ -44,7 +44,7 @@ with
             z.county_fips,
             z.county_fips_all,  
             z.county_names_all,
-            z.county_weights,         
+--            z.county_weights,   (columna tipo variant)         
             case 
                 when z2.timezone is null then z.timezone
                 else z2.timezone

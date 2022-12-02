@@ -18,6 +18,7 @@ final_users as (
         u.last_name,
         replace(u.phone_number,'-','')::number as phone_number,
         a.address_id,
+        a.NK_address_id,
         u.email,
         u.user_created_at_date_id,
         u.user_created_at,
