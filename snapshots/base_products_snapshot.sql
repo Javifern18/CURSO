@@ -12,7 +12,7 @@
 
 with products as (
     select 
-        {{ dbt_utils.surrogate_key(['product_id', 'name','price']) }} as product_id,
+        {{ dbt_utils.surrogate_key(['product_id', 'inventory','price']) }} as product_id,
         product_id as NK_product_id,
         name as product_name,
         price as product_price,
