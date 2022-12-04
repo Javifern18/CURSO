@@ -1,13 +1,12 @@
 with budget_info as (
     select
         budget_id,
-        month(budget_date) as month,
-        year(budget_date) as year,
+        NK_budget_id,
+        year(budget_date)*100+month(budget_date) as date_month_id,
         product_id,
         estimated_quantity    
 
     from {{ ref('stg_budget') }}
-    order by month
 ),
 
 product_info as (
@@ -22,8 +21,8 @@ product_info as (
 final_budget as (
     select
         b.budget_id,
-        b.month,
-        b.year,
+--        b.NK_budget_id,
+        b.date_month_id,
         p.NK_product_id, 
         b.product_id,
         b.estimated_quantity,
@@ -33,4 +32,4 @@ final_budget as (
         on b.product_id = p.product_id
 )
 
-select * from final_budget
+select * from final_budget order by date_month_id

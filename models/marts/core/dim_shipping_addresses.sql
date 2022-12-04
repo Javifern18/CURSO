@@ -9,7 +9,7 @@ stg_addresses as (
 final as (
     select 
         u.shipping_address_id,
-        u.NK_shipping_address_id,
+--        u.NK_shipping_address_id,
         a.address,
         a.zipcode,
         a.zipcode_type,

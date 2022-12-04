@@ -11,11 +11,9 @@ with stock_snapshot as (
 
     select 
         product_id,
-        NK_product_id,
         stock,
-        month(dbt_valid_from) as mes,
-        dbt_valid_from as stock_valid_from,
-        dbt_valid_to as stock_valid_to
+        {{timestamp_to_date_id('dbt_valid_from')}} as stock_valid_from_id,
+        {{timestamp_to_date_id('dbt_valid_to')}} as stock_valid_to_id
     
     from {{ ref('stg_stock_snapshot') }}
 )
