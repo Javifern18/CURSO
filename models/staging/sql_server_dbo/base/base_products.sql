@@ -12,16 +12,4 @@ with products as (
     from {{ source("sql_server_dbo", "products") }}
 ),
 
-fivetran_not_deleted as (
-    select
-        product_id,
-        NK_product_id,
-        product_name,
-        product_price,
-        stock,
-        _fivetran_synced
-    
-    from products where NK_product_id not in (select NK_product_id from products where _fivetran_deleted=true)
-)
-
-select * from fivetran_not_deleted
+{{borra_fivetran_deleted_1('products','NK_product_id')}}

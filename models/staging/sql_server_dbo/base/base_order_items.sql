@@ -11,16 +11,4 @@ with order_items as (
     from {{ source("sql_server_dbo", "order_items") }}
 ),
 
-fivetran_not_deleted as (
-    select
-        order_items_id,
-        NK_order_items_id, 
-        NK_order_id,
-        NK_product_id,
-        product_quantity,
-        _fivetran_synced
-    
-    from order_items where NK_order_items_id not in (select NK_order_items_id from order_items where _fivetran_deleted=true)
-)
-
-select * from fivetran_not_deleted
+{{borra_fivetran_deleted_1('order_items','NK_order_items_id')}}

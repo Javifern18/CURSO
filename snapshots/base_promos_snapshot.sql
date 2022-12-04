@@ -23,18 +23,6 @@ with promos as (
     from {{ source("sql_server_dbo", "promos") }}
 ),
 
-fivetran_not_deleted as (
-    select
-        promo_id,  
-        NK_promo_id,
-        promo_name,
-        promo_status,
-        discount,
-        _fivetran_synced 
-    
-    from promos where NK_promo_id not in (select NK_promo_id from promos where _fivetran_deleted=true)
-)
-
-select * from fivetran_not_deleted
+{{borra_fivetran_deleted_1('promos','NK_promo_id')}}
 
 {% endsnapshot %}
