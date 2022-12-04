@@ -1,3 +1,10 @@
+{{
+    config(
+        materialized='incremental',
+        tags=['incremental'] 
+    )
+}}
+
 with stg_events as (
     select
         event_id,
@@ -17,3 +24,9 @@ with stg_events as (
 )
 
 select * from stg_events
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

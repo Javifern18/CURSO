@@ -1,3 +1,4 @@
+
 with users_addresses as (
     select distinct shipping_address_id, NK_shipping_address_id from {{ ref('stg_orders') }}
 ),

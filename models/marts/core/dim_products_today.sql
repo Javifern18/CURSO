@@ -1,5 +1,5 @@
 -- Dimensión con la información actual de los productos a día de hoy
--- ¿En principio no la hago incremental porque no será tan grande como la dimensión histórica?
+-- En principio no la hago incremental porque no será tan grande como la dimensión histórica
 
 with products as (   
 

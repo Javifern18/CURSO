@@ -1,4 +1,9 @@
--- ¿Efímero?
+{{
+    config(
+        materialized='ephemeral',
+        tags=['Efímero']
+    )
+}}
 
 with order_info as (
     select

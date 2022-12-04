@@ -1,3 +1,4 @@
+
 -- COMPRAS DE UNA MISMA PERSONA 
 -- (PUEDE REPETIRSE EL REGISTRO DE LA PERSONA [misma NK] CON LAS MISMAS MÉTRICAS CALCULADAS SI CAMBIA DE DIRECCION DE RESIDENCIA...)
 
@@ -25,7 +26,6 @@ info_total_orders as (
         u.city,
         u.county,
         u.state,
---        u.user_created_at_id,
         u.user_valid_from,
         u.user_valid_to,
         count(distinct o.order_id) as numb_of_total_orders,
@@ -46,6 +46,5 @@ from
 )
 
 select * from info_total_orders
-
 
 -- select count(distinct NK_product_id) as numb_of_diff_products from {{ ref('fct_products_by_order') }} group by NK_user_id

@@ -1,9 +1,3 @@
-{{
-    config(
-        materialized='incremental',
-        tags=['incremental']    
-    )
-}}
 
 with products as (   
 
@@ -22,9 +16,3 @@ with products as (
 )
 
 select * from products
-
-{% if is_incremental() %}
-
-  where product_valid_from > (select max(product_valid_from) from {{ this }})
-
-{% endif %}

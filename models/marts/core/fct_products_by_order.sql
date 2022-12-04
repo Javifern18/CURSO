@@ -1,3 +1,10 @@
+{{
+    config(
+        materialized='incremental',
+        tags=['incremental'] 
+    )
+}}
+
 with orders_info as (
     select * from {{ ref('stg_orders') }}
 ),
@@ -19,10 +26,8 @@ products_by_order as (
         o.order_cost,
         o.shipping_cost,
         o.order_total,
-        o.tracking_id
---        o._fivetran_synced 
---        oi._fivetran_synced
--- HACER INCREMENTAL USANDO _FIVETRAN_SYNCED            
+        o.tracking_id,
+        o._fivetran_synced        
     
     from orders_info o join order_items_info oi
         on o.order_id = oi.order_id        
@@ -30,3 +35,9 @@ products_by_order as (
 
 
 select * from products_by_order
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

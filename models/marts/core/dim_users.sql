@@ -1,9 +1,3 @@
-{{
-    config(
-        materialized='incremental',
-      tags=['incremental']    
-    )
-}}
 
 with users_snapshot as (
       select * from {{ ref('stg_users') }}
@@ -35,9 +29,3 @@ dim_users as (
 )
 
 select * from dim_users
-
-{% if is_incremental() %}
-
-  where user_valid_from > (select max(user_valid_from) from {{ this }})
-
-{% endif %}

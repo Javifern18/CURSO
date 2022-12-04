@@ -22,6 +22,6 @@ select * from stock_snapshot
 
 {% if is_incremental() %}
 
-  where stock_valid_from > (select max(stock_valid_from) from {{ this }})
+  where stock_valid_from_id > (select max(stock_valid_from_id) from {{ this }})
 
 {% endif %}
