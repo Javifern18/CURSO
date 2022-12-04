@@ -45,9 +45,17 @@ models:
         description: ""
 
       - name: nk_product_id
+        tests:
+          - relationships:
+              to: source('sql_server_dbo', 'products')
+              field: product_id
         description: ""
 
       - name: nk_order_id
+        tests:
+          - relationships:
+              to: source('sql_server_dbo', 'orders')
+              field: order_id
         description: ""
 
       - name: page_url
@@ -77,6 +85,8 @@ models:
         description: ""
 
       - name: nk_order_items_id
+        tests:
+          - unique
         description: ""
 
       - name: nk_order_id
@@ -86,68 +96,6 @@ models:
         description: ""
 
       - name: product_quantity
-        description: ""
-
-      - name: _fivetran_synced
-        description: ""
-
-  - name: base_orders
-    description: ""
-    columns:
-      - name: order_id
-        tests:
-          - unique
-        description: ""
-
-      - name: nk_order_id
-        description: ""
-
-      - name: nk_promo_id
-        description: ""
-
-      - name: shipping_service
-        description: ""
-
-      - name: shipping_cost
-        description: ""
-
-      - name: estimated_delivery_at_date_id
-        description: ""
-
-      - name: estimated_delivery_at_date
-        description: ""
-
-      - name: estimated_delivery_at_time
-        description: ""
-
-      - name: nk_address_id
-        description: ""
-
-      - name: nk_user_id
-        description: ""
-
-      - name: order_status
-        description: ""
-
-      - name: order_cost
-        description: ""
-
-      - name: tracking_id
-        description: ""
-
-      - name: order_created_at
-        description: ""
-
-      - name: delivered_at_date_id
-        description: ""
-
-      - name: delivered_at_date
-        description: ""
-
-      - name: delivered_at_time
-        description: ""
-
-      - name: order_total
         description: ""
 
       - name: _fivetran_synced
@@ -176,66 +124,4 @@ models:
       - name: _fivetran_synced
         description: ""
 
-  - name: base_promos
-    description: ""
-    columns:
-      - name: promo_id
-        tests:
-          - unique
-        description: ""
 
-      - name: nk_promo_id
-        description: ""
-
-      - name: promo_name
-        description: ""
-
-      - name: promo_status
-        description: ""
-
-      - name: discount
-        description: ""
-
-      - name: _fivetran_synced
-        description: ""
-
-  - name: base_users
-    description: ""
-    columns:
-      - name: user_id
-        tests:
-          - unique
-        description: ""
-
-      - name: nk_user_id
-        description: ""
-
-      - name: first_name
-        description: ""
-
-      - name: last_name
-        description: ""
-
-      - name: phone_number
-        description: ""
-
-      - name: nk_address_id
-        description: ""
-
-      - name: email
-        description: ""
-
-      - name: user_created_at_date_id
-        description: ""
-
-      - name: user_created_at_date
-        description: ""
-
-      - name: user_created_at
-        description: ""
-
-      - name: user_updated_at
-        description: ""
-
-      - name: _fivetran_synced
-        description: ""

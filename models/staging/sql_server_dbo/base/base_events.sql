@@ -4,7 +4,7 @@ with events as (
         event_id as NK_event_id,
         user_id as NK_user_id,
         session_id,
-        product_id as NK_product_id,
+        nullif(product_id,'') as NK_product_id,
         nullif(order_id,'') as NK_order_id,
         page_url,
         {{timestamp_to_date_id('created_at')}} as event_date_id,

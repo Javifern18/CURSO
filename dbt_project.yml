@@ -69,8 +69,6 @@ models:
           +docs:
             node_color: "black" 
           tags: ['Bases']
-        stage:
-          tags: ['Stages']   
       
     marts:
       +materialized: table

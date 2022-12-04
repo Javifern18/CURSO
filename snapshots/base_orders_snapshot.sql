@@ -14,7 +14,8 @@ with orders as (
     select 
         {{ dbt_utils.surrogate_key(['order_id','status','_fivetran_synced']) }} as order_id,  
         order_id as NK_order_id,
-        {{ dbt_utils.surrogate_key(['promo_id'])}} as NK_promo_id,
+        nullif({{ dbt_utils.surrogate_key(['promo_id'])}},'') as NK_promo_id,
+        nullif(promo_id,'') as promo_name,
         nullif(shipping_service,'') as shipping_service,
         shipping_cost,
         {{timestamp_to_date_id('estimated_delivery_at')}} as estimated_delivery_at_date_id,
