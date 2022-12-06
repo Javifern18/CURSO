@@ -31,7 +31,7 @@ with order_status_info as (
 order_status_updated as (
     select
         order_id,
---        NK_order_id,
+        NK_order_id,
         shipping_address_id,
         shipping_service_id,
         order_created_at_date_id,
