@@ -1,9 +1,3 @@
-{{
-    config(
-        materialized='incremental',
-        tags=['incremental']    
-    )
-}}
 
 with order_status_info as (
     select 
@@ -50,9 +44,3 @@ order_status_updated as (
 )
 
 select * from order_status_updated
-
-{% if is_incremental() %}
-
-  where order_status_valid_from > (select max(order_status_valid_from) from {{ this }})
-
-{% endif %}

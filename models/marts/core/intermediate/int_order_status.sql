@@ -1,7 +1,7 @@
 {{
     config(
         materialized='ephemeral',
-        tags=['Efímero']
+        tags=['ephemeral']    
     )
 }}
 
@@ -59,7 +59,7 @@ order_info_delay as (
         order_status_valid_to,
         _fivetran_synced 
 
-    from order_info where order_status_valid_to is null
+    from order_info
 )
 
 select * from order_info_delay
