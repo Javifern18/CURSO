@@ -91,7 +91,7 @@ models:
           tags: ['Intermediates']
         
 snapshots:
-  +sql_header: "alter session set timezone = 'Europe/Madrid';alter session set week_start = 7;"
+  +sql_header: "alter session set timezone = 'America/Los_Angeles';alter session set week_start = 7;"
   +transient: false
   +docs:
     node_color: "brown"
