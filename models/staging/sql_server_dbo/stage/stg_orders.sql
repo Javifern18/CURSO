@@ -1,5 +1,13 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['NK_order_id'],
+        tags=['incremental'] 
+    )
+}}
+
 with orders as (
-    select * from {{ ref('base_orders_snapshot') }}
+    select * from {{ ref('base_orders') }}
 ),
 
 seed_shipping_service_description as (
@@ -60,8 +68,6 @@ final_orders as (
         o.delivered_at_id,
         o.order_total,
         o.delivered_at_date - o.estimated_delivery_at_date as days_early_or_delay,
-        o.dbt_valid_from as order_status_valid_from,
-        o.dbt_valid_to as order_status_valid_to,
         o._fivetran_synced    
          
         from orders o 
@@ -76,3 +82,9 @@ final_orders as (
 )
 
 select * from final_orders
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

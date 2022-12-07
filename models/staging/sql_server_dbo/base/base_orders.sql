@@ -1,12 +1,8 @@
-{% snapshot base_orders_snapshot %}
-
 {{
     config(
-      unique_key='NK_order_id',
-      strategy='timestamp',
-      updated_at='_fivetran_synced',
-      invalidate_hard_deletes=True,
-      tags=['SILVER','Bases','Snapshot'],
+        materialized='incremental',
+        unique_key=['NK_order_id'],
+        tags=['incremental'] 
     )
 }}
 
@@ -39,9 +35,13 @@ with orders as (
         _fivetran_deleted,
         _fivetran_synced
 
-    from {{ source("sql_server_dbo", "orders") }}
-),
+    from {{ source("sql_server_dbo", "orders") }} where _fivetran_deleted is null
+)
 
-{{borra_fivetran_deleted_1('orders','NK_order_id')}}
+select * from orders 
 
-{% endsnapshot %}
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

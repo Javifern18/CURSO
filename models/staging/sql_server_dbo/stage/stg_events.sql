@@ -15,7 +15,7 @@ orders as (
         order_id,
         NK_order_id
     
-    from {{ ref('base_orders_snapshot') }}
+    from {{ ref('base_orders') }}
 ),
 
 products as (
