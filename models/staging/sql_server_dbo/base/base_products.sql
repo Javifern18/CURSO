@@ -1,3 +1,9 @@
+{{
+    config(
+        tags=['Views'],
+    )
+}}
+
 with products as (
     select 
         {{ dbt_utils.surrogate_key(['product_id', 'inventory','price']) }} as product_id,
