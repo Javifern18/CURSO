@@ -18,7 +18,7 @@ with stock_snapshot as (
         {{timestamp_to_date_id(('_fivetran_synced'))}} as id_fecha,
         _fivetran_synced
 
-    from {{ ref('stg_stock_snapshot') }}
+    from {{ ref('stg_stock') }}
 )
 
 select * from stock_snapshot

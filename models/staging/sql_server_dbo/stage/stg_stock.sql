@@ -1,12 +1,8 @@
-{% snapshot stg_stock_snapshot %}
-
 {{
     config(
-        strategy='check',
-        unique_key='NK_product_id',
-        check_cols=['stock'],
-        invalidate_hard_deletes=True,
-        tags=['SILVER','Stages','Snapshot'],
+        materialized='incremental',
+        unique_key=['NK_product_id','_fivetran_synced'],
+        tags=['incremental'] 
     )
 }}
 
@@ -23,4 +19,8 @@ with products as (
 
 select * from products
 
-{% endsnapshot %}
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

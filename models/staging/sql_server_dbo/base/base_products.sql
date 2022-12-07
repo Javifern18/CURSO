@@ -15,7 +15,7 @@ with products as (
         _fivetran_synced
 
     
-    from {{ source("sql_server_dbo", "products") }}
-),
+    from {{ source("sql_server_dbo", "products") }} where _fivetran_deleted = false
+)
 
-{{borra_fivetran_deleted_1('products','NK_product_id')}}
+select * from products
