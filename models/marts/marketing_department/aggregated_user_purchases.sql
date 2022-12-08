@@ -1,6 +1,5 @@
-
 with users as (
-    select * from {{ ref('dim_users') }}
+    select * from {{ ref('dim_users_today') }}
 ),
 
 orders as (
@@ -23,8 +22,6 @@ info_total_orders as (
         u.city,
         u.county,
         u.state,
-        u.user_valid_from,
-        u.user_valid_to,
         count(distinct o.order_id) as numb_of_total_orders,
         sum(o.product_quantity) as numb_of_total_products,
         round(sum(o.order_cost),2) as total_order_cost,
@@ -38,10 +35,8 @@ from
             left join promos p
         on o.promo_id = p.promo_id
 
-    {{dbt_utils.group_by(12)}}
+    {{dbt_utils.group_by(10)}}
         order by NK_user_id
 )
 
 select * from info_total_orders
-
--- select count(distinct NK_product_id) as numb_of_diff_products from {{ ref('fct_products_by_order') }} group by NK_user_id

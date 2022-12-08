@@ -1,3 +1,9 @@
+{{
+    config(
+        tags='Views'
+    )
+}}
+
 with order_items as (
     select
         {{ dbt_utils.surrogate_key(['order_id','product_id','_fivetran_synced']) }} as order_items_id,
@@ -8,7 +14,7 @@ with order_items as (
         _fivetran_deleted,
         _fivetran_synced
 
-    from {{ source("sql_server_dbo", "order_items") }}
-),
+    from {{ source("sql_server_dbo", "order_items") }} where _fivetran_deleted = false
+)
 
-{{borra_fivetran_deleted_1('order_items','NK_order_items_id')}}
+select * from order_items

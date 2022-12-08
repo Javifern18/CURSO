@@ -28,6 +28,7 @@ dim_users as (
         a.county,
         a.state,
         a.country,
+        u._fivetran_synced,
         u.user_valid_from,
         u.user_valid_to
 

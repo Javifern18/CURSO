@@ -1,6 +1,7 @@
 {{
     config(
         materialized='incremental',
+        unique_key=['products_by_order_id'],
         tags=['incremental'] 
     )
 }}

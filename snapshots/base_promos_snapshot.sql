@@ -20,9 +20,9 @@ with promos as (
         _fivetran_deleted,
         _fivetran_synced 
     
-    from {{ source("sql_server_dbo", "promos") }}
-),
+    from {{ source("sql_server_dbo", "promos") }} where _fivetran_deleted = false
+)
 
-{{borra_fivetran_deleted_1('promos','NK_promo_id')}}
+select * from promos
 
 {% endsnapshot %}

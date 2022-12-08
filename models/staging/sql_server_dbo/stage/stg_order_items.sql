@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['NK_order_items_id'],
+        tags=['incremental'] 
+    )
+}}
+
 with order_items as (
     select * from {{ ref('base_order_items') }}
 ),
@@ -36,3 +44,9 @@ final_order_items as (
 )
 
 select * from final_order_items
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}
