@@ -27,6 +27,6 @@ select * from products
 
 {% if is_incremental() %}
 
-  where to_date(_fivetran_synced) >= (select to_date(_fivetran_synced)) from {{ this }})
+  where NK_product_id in (select NK_product_id from products where _fivetran_synced > (select max(_fivetran_synced) from {{ this }}))
 
 {% endif %}
