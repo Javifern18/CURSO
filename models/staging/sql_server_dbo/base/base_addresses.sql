@@ -1,3 +1,9 @@
+{{
+    config(
+        tags='Views'
+    )
+}}
+
 with addresses as (
     select 
         {{ dbt_utils.surrogate_key(['address_id', '_fivetran_synced']) }} as address_id,        
@@ -9,8 +15,8 @@ with addresses as (
         _fivetran_deleted,
         _fivetran_synced 
     
-    from {{ source("sql_server_dbo", "addresses") }}
+    from {{ source("sql_server_dbo", "addresses") }} where _fivetran_deleted = false
 
-),
+)
 
-{{borra_fivetran_deleted_1('addresses','NK_address_id')}}
+select * from addresses

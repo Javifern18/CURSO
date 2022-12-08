@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['NK_event_id'],
+        tags=['incremental'] 
+    )
+}}
+
 with events as (
     select * from {{ ref('base_events') }}
 ),
@@ -53,3 +61,9 @@ final_events as (
 )
 
 select * from final_events
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

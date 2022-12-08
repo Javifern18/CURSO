@@ -1,3 +1,9 @@
+{{
+    config(
+        tags='Views'
+    )
+}}
+
 with events as (
     select
         {{ dbt_utils.surrogate_key(['event_id','_fivetran_synced']) }} as event_id,  
@@ -15,7 +21,7 @@ with events as (
         _fivetran_deleted,
         _fivetran_synced
     
-    from {{ source("sql_server_dbo", "events") }}
-),
+    from {{ source("sql_server_dbo", "events") }} where _fivetran_deleted = false
+)
 
-{{borra_fivetran_deleted_1('events','NK_event_id')}}
+select * from events

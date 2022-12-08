@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['NK_address_id'],
+        tags=['incremental'] 
+    )
+}}
+
 with
     base_addresses as (select * from {{ ref("base_addresses") }}),
 
@@ -56,3 +64,9 @@ with
 )
 
 select * from addresses_uszips
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

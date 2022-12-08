@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['NK_user_id','user_valid_from'],
+        tags=['incremental'] 
+    )
+}}
+
 with users as (
     select * from {{ ref('base_users_snapshot') }}
 ),
@@ -31,3 +39,9 @@ final_users as (
 )
 
 select * from final_users
+
+{% if is_incremental() %}
+
+  where NK_user_id in (select NK_user_id from final_users where _fivetran_synced > (select max(_fivetran_synced) from {{ this }}))
+
+{% endif %}

@@ -1,3 +1,9 @@
+{{
+    config(
+        tags='Views'
+    )
+}}
+
 with source as (
 
     select * from {{ source('my_sources', 'uszips_2') }}

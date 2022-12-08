@@ -28,9 +28,9 @@ with users as (
         _fivetran_deleted,
         _fivetran_synced
 
-    from {{ source("sql_server_dbo", "users") }}
-),
+    from {{ source("sql_server_dbo", "users") }} where _fivetran_deleted = false
+)
 
-{{borra_fivetran_deleted_1('users','NK_user_id')}}
+select * from users
 
 {% endsnapshot %}

@@ -1,7 +1,4 @@
 
--- COMPRAS DE UNA MISMA PERSONA 
--- (PUEDE REPETIRSE EL REGISTRO DE LA PERSONA [misma NK] CON LAS MISMAS MÉTRICAS CALCULADAS SI CAMBIA DE DIRECCION DE RESIDENCIA...)
-
 with users as (
     select * from {{ ref('dim_users') }}
 ),
