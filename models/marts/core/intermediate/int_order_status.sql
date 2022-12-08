@@ -31,7 +31,7 @@ order_info_delay as (
         order_id,
         NK_order_id,
         shipping_address_id,
-        shipping_service_id,
+        ifnull(shipping_service_id,'0') as shipping_service_id,
         order_created_at_date_id,
         order_created_at_id,
         tracking_id,

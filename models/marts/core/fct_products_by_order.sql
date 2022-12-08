@@ -24,7 +24,7 @@ products_by_order as (
         o.promo_id,
         o.user_id,
         o.shipping_address_id,
-        o.shipping_service_id,
+        ifnull(o.shipping_service_id,'0') as shipping_service_id,
         o.order_cost,
         o.shipping_cost,
         o.order_total,

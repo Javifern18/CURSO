@@ -3,7 +3,6 @@ with dim_promos as (
         promo_id,
         NK_promo_id,
         promo_name,
-        promo_status,
         discount,
         promo_valid_from,
         promo_valid_to

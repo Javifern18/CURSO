@@ -9,7 +9,10 @@ with promos as (
         dbt_valid_to as promo_valid_to,
         _fivetran_synced 
     
-    from {{ ref('base_promos_snapshot') }}
+    from {{ ref('base_promos_snapshot') }} where promo_status='active'
+
+    union
+    select '0',null,'no_promo','active',0,to_timestamp(0),null,to_timestamp(0)
 )
 
 select * from promos

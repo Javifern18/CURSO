@@ -47,7 +47,7 @@ final_orders as (
     select 
         o.order_id,
         o.NK_order_id,
-        p.promo_id,
+        ifnull(p.promo_id,'0') as promo_id,
         p.NK_promo_id,
         s.shipping_service_id,
         s.shipping_service_name,

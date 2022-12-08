@@ -1,8 +1,6 @@
 {{
     config(
-        materialized='incremental',
-        unique_key=['NK_order_id'],
-        tags=['incremental'] 
+        tags=['Views']
     )
 }}
 
@@ -38,10 +36,4 @@ with orders as (
     from {{ source("sql_server_dbo", "orders") }} where _fivetran_deleted is null
 )
 
-select * from orders 
-
-{% if is_incremental() %}
-
-  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
-
-{% endif %}
+select * from orders

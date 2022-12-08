@@ -39,7 +39,7 @@ models:
     staging:
       +materialized: view
       +docs:
-        node_color: "gray"
+        node_color: "#616160"
       +database: |  
         {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno18 
         {%- elif target.name == 'ci' -%} dev_silver_db_alumno18 
@@ -89,7 +89,7 @@ models:
           +docs:
             node_color: "#E05800"
           tags: ['Intermediates']
-        
+
 snapshots:
   +sql_header: "alter session set timezone = 'America/Los_Angeles';alter session set week_start = 7;"
   +transient: false
