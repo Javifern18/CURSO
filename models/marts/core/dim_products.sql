@@ -1,3 +1,10 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['NK_product_id','product_valid_from'],
+        tags=['incremental'] 
+    )
+}}
 
 with products as (   
 
@@ -6,13 +13,20 @@ with products as (
         NK_product_id,
         product_name,
         product_price,
+        _fivetran_synced,
         dbt_valid_from as product_valid_from,
         dbt_valid_to as product_valid_to
     
     from {{ ref('stg_products_snapshot') }}
 
     union
-    select '0',null,'None product', null,to_timestamp(0),null
+    select '0',null,'None product', null,null,null,null
 )
 
 select * from products
+
+{% if is_incremental() %}
+
+  where to_date(_fivetran_synced) >= (select to_date(_fivetran_synced)) from {{ this }})
+
+{% endif %}

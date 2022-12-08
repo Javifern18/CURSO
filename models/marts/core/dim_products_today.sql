@@ -1,5 +1,11 @@
 -- Dimensión con la información actual de los productos a día de hoy
--- En principio no la hago incremental porque no será tan grande como la dimensión histórica
+{{
+    config(
+        materialized='incremental',
+        unique_key=['NK_product_id'],
+        tags=['incremental'] 
+    )
+}}
 
 with products as (   
 
@@ -8,11 +14,16 @@ with products as (
         NK_product_id,
         product_name,
         product_price,
-        datediff(day,product_valid_from,current_date()) as last_update_days_ago
+        datediff(day,current_date(),product_valid_from) as last_update_days_ago,
+        _fivetran_synced
     
     from {{ ref('dim_products') }}
-
-    where product_valid_to is null
 )
 
 select * from products
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}
