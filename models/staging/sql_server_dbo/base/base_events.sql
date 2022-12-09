@@ -21,7 +21,7 @@ with events as (
         _fivetran_deleted,
         _fivetran_synced
     
-    from {{ source("sql_server_dbo", "events") }} where _fivetran_deleted = false
+    from {{ source("sql_server_dbo", "events") }} where _fivetran_deleted = false or _fivetran_deleted is null 
 )
 
 select * from events

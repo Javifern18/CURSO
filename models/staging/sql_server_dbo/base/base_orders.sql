@@ -33,7 +33,7 @@ with orders as (
         _fivetran_deleted,
         _fivetran_synced
 
-    from {{ source("sql_server_dbo", "orders") }} where _fivetran_deleted is null
+    from {{ source("sql_server_dbo", "orders") }} where _fivetran_deleted = false or _fivetran_deleted is null
 )
 
 select * from orders

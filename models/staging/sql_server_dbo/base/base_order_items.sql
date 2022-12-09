@@ -14,7 +14,7 @@ with order_items as (
         _fivetran_deleted,
         _fivetran_synced
 
-    from {{ source("sql_server_dbo", "order_items") }} where _fivetran_deleted = false
+    from {{ source("sql_server_dbo", "order_items") }} where _fivetran_deleted = false or _fivetran_deleted is null
 )
 
 select * from order_items
