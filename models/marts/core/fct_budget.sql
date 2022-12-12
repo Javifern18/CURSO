@@ -42,7 +42,7 @@ final_budget as (
         on b.product_id = p.product_id
 )
 
-select * from final_budget order by date_month_id
+select * from final_budget
 
 {% if is_incremental() %}
 

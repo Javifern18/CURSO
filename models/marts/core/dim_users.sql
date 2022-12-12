@@ -40,6 +40,6 @@ select * from dim_users
 
 {% if is_incremental() %}
 
-  where NK_user_id in (select NK_user_id from final_users where _fivetran_synced > (select max(_fivetran_synced) from {{ this }}))
+  where NK_user_id in (select NK_user_id from dim_users where _fivetran_synced > (select max(_fivetran_synced) from {{ this }}))
 
 {% endif %}

@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        unique_key=['NK_address_id'],
+        unique_key=['NK_shipping_address_id'],
         tags=['incremental'] 
     )
 }}
