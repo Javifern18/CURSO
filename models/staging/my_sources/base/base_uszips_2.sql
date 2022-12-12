@@ -1,3 +1,9 @@
+{{
+    config(
+        tags='Views'
+    )
+}}
+
 with source as (
 
     select * from {{ source('my_sources', 'uszips_2') }}
@@ -7,7 +13,6 @@ with source as (
 renamed as (
 
     select
-        md5(zip) as zipcode_id,
         zip as zipcode,
         type as zipcode_type,
         decommissioned,

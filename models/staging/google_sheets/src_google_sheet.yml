@@ -13,6 +13,7 @@ sources:
         columns: 
           - name: _row
             tests:
+              - unique
               - not_null
             description: "Natural key de la tabla de presupuesto por mes y producto"
           - name: quantity

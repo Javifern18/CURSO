@@ -1,3 +1,9 @@
+{{
+    config(
+        tags='Views'
+    )
+}}
+
 with budget as (
     select 
         {{ dbt_utils.surrogate_key(['_row', 'product_id','month']) }} as budget_id,

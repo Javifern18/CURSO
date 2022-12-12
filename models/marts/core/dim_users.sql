@@ -1,11 +1,13 @@
 {{
     config(
-        materialized='incremental'
+        materialized='incremental',
+        unique_key=['NK_user_id','user_valid_from'],
+        tags=['incremental'] 
     )
 }}
 
 with users_snapshot as (
-      select * from {{ ref('users_snapshot') }}
+      select * from {{ ref('stg_users') }}
 ),
 
 users_addresses as (
@@ -15,6 +17,7 @@ users_addresses as (
 dim_users as (
   select 
         u.user_id,
+        u.NK_user_id,
         u.first_name,
         u.last_name,
         u.phone_number,
@@ -25,9 +28,9 @@ dim_users as (
         a.county,
         a.state,
         a.country,
-        u.user_created_at,
-        u.dbt_valid_from as user_valid_from,
-        u.dbt_valid_to as user_valid_to
+        u._fivetran_synced,
+        u.user_valid_from,
+        u.user_valid_to
 
   from users_snapshot u left join users_addresses a
     on u.address_id = a.address_id
@@ -37,6 +40,6 @@ select * from dim_users
 
 {% if is_incremental() %}
 
-  where user_valid_from > (select max(user_valid_from) from {{ this }})
+  where NK_user_id in (select NK_user_id from dim_users where _fivetran_synced > (select max(_fivetran_synced) from {{ this }}))
 
 {% endif %}

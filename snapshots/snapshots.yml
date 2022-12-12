@@ -1,0 +1,119 @@
+version: 2
+
+snapshots: 
+  - name: base_promos_snapshot
+    description: ""
+    columns:
+      - name: promo_id
+        description: ""
+
+      - name: nk_promo_id
+        description: ""
+
+      - name: promo_name
+        description: ""
+
+      - name: promo_status
+        description: ""
+
+      - name: discount
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+      - name: dbt_scd_id
+        description: ""
+
+      - name: dbt_updated_at
+        description: ""
+
+      - name: dbt_valid_from
+        description: ""
+
+      - name: dbt_valid_to
+        description: ""
+
+  - name: base_users_snapshot
+    description: ""
+    columns:
+      - name: user_id
+        description: ""
+
+      - name: nk_user_id
+        description: ""
+
+      - name: first_name
+        description: ""
+
+      - name: last_name
+        description: ""
+
+      - name: phone_number
+        description: ""
+
+      - name: nk_address_id
+        description: ""
+
+      - name: email
+        description: ""
+
+      - name: user_created_at_date_id
+        description: ""
+
+      - name: user_created_at_date
+        description: ""
+
+      - name: user_created_at_id
+        description: ""
+
+      - name: user_created_at
+        description: ""
+
+      - name: user_updated_at
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+      - name: dbt_scd_id
+        description: ""
+
+      - name: dbt_updated_at
+        description: ""
+
+      - name: dbt_valid_from
+        description: ""
+
+      - name: dbt_valid_to
+        description: ""
+
+  - name: stg_products_snapshot
+    description: ""
+    columns:
+      - name: product_id
+        description: ""
+
+      - name: nk_product_id
+        description: ""
+
+      - name: product_name
+        description: ""
+
+      - name: product_price
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+      - name: dbt_scd_id
+        description: ""
+
+      - name: dbt_updated_at
+        description: ""
+
+      - name: dbt_valid_from
+        description: ""
+
+      - name: dbt_valid_to
+        description: ""

@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['NK_event_id'],
+        tags=['incremental'] 
+    )
+}}
+
 with events as (
     select * from {{ ref('base_events') }}
 ),
@@ -7,7 +15,7 @@ users as (
         user_id,
         NK_user_id
     
-    from {{ ref('base_users') }}
+    from {{ ref('base_users_snapshot') }}
 ),
 
 orders as (
@@ -29,13 +37,17 @@ products as (
 final_events as (
     select
         e.event_id,
+        e.NK_event_id,
         u.user_id,
+        u.NK_user_id,
         o.order_id,
+        o.NK_order_id,
         e.session_id,
         e.page_url,
         e.event_date_id,
-        e.event_created_at,
+        e.event_created_at_id,
         e.event_type,
+        p.NK_product_id,
         p.product_id,
         e._fivetran_synced
 
@@ -49,3 +61,9 @@ final_events as (
 )
 
 select * from final_events
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

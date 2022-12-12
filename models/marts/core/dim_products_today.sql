@@ -1,27 +1,26 @@
--- Tabla de hechos de tipo SNAPSHOT (foto diaria)
-
+-- Dimensión con la información actual de los productos a día de hoy
 {{
     config(
         materialized='incremental',
-        unique_key=['NK_product_id','_fivetran_synced'],
+        unique_key=['NK_product_id'],
         tags=['incremental'] 
     )
 }}
 
-with stock_snapshot as (   
+with products as (   
 
     select 
         product_id,
         NK_product_id,
         product_name,
-        stock,
-        {{timestamp_to_date_id(('_fivetran_synced'))}} as id_fecha,
+        product_price,
+        datediff(day,current_date(),product_valid_from) as last_update_days_ago,
         _fivetran_synced
-
-    from {{ ref('stg_stock') }}
+    
+    from {{ ref('dim_products') }}
 )
 
-select * from stock_snapshot
+select * from products
 
 {% if is_incremental() %}
 

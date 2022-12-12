@@ -1,8 +1,8 @@
 with stg_orders as (
-    select
-        shipping_service_id 
-        ,shipping_service_name
-        ,shipping_service_description
+    select distinct
+        ifnull(shipping_service_id,'0') as shipping_service_id
+        ,ifnull(shipping_service_name,'No asignado') as shipping_service_name
+        ,ifnull(shipping_service_description,'No asignado') as shipping_service_description
     
     from {{ ref('stg_orders') }}
 )

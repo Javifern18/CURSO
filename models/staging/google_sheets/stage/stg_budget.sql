@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['NK_budget_id'],
+        tags=['incremental'] 
+    )
+}}
+
 with budget as (
     select * from {{ ref('base_budget') }} 
 ),
@@ -11,10 +19,12 @@ products as (
 ),
 
 final_budget as (
-    select 
+    select
+        b.NK_budget_id, 
         b.budget_id,
         b.estimated_quantity,
         b.budget_date,
+        p.NK_product_id,
         p.product_id,
         b._fivetran_synced 
 
@@ -23,3 +33,9 @@ final_budget as (
 )
 
 select * from final_budget
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

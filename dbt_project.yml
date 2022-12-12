@@ -38,31 +38,63 @@ models:
 
     staging:
       +materialized: view
+      +docs:
+        node_color: "#616160"
       +database: |  
         {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno18 
         {%- elif target.name == 'ci' -%} dev_silver_db_alumno18 
         {%- elif target.name == 'pro'-%} pro_silver_db_alumno18  
         {%- else -%} {{target.database}}_silver_db_alumno18
         {%- endif -%}
+      tags: ['SILVER']
       google_sheets:
         +schema: google_sheets
+        base:
+          +docs:
+            node_color: "black"
+          tags: ['Bases']
+        stage:
+          tags: ['Stages']  
       sql_server_dbo:
-        +schema: sql_server_dbo
+        +schema: sql_server_dbo 
+        base:
+          +docs:
+            node_color: "black"
+          tags: ['Bases']
+        stage:
+          tags: ['Stages']    
+      my_sources:
+        +schema: my_sources
+        base:
+          +docs:
+            node_color: "black" 
+          tags: ['Bases']
       
     marts:
       +materialized: table
+      +docs:
+        node_color: "#D1A100"
+      +transient: false
       +database: |  
         {%- if  target.name == 'user_dev' -%} dev_gold_db_alumno18  
         {%- elif target.name == 'ci' -%} dev_gold_db_alumno18 
         {%- elif target.name == 'pro'-%} pro_gold_db_alumno18
         {%- else -%} {{target.database}}_gold_db_alumno18
         {%- endif -%}
+      tags: ['GOLD']
       core:
         +schema: core
         
+        intermediate:
+          +docs:
+            node_color: "#E05800"
+          tags: ['Intermediates']
+
 snapshots:
-  +sql_header: "alter session set timezone = 'Europe/Madrid';alter session set week_start = 7;"
+  +sql_header: "alter session set timezone = 'America/Los_Angeles';alter session set week_start = 7;"
   +transient: false
+  +docs:
+    node_color: "brown"
   +target_database: |  
         {%- if  target.name == 'user_dev' -%} dev_silver_db_alumno18
         {%- elif target.name == 'ci' -%} dev_silver_db_alumno18 

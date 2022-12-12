@@ -1,3 +1,9 @@
+{{
+    config(
+        tags='Views'
+    )
+}}
+
 with source as (
 
     select * from {{ source('my_sources', 'uszips') }}
@@ -7,7 +13,6 @@ with source as (
 renamed as (
 
     select
-        md5(zip) as zipcode_id,
         zip as zipcode,
         lat as latitude,
         lng as longitude,
@@ -15,9 +20,9 @@ renamed as (
         state_id,
         state_name,
         zcta as ZIP_code_tab_area,
-        parent_zcta,
-        population,
-        density,
+        nullif(parent_zcta,'') as parent_zcta,
+        nullif(population,'') as population,
+        nullif(density,'') as density,
         county_fips,
         county_name,
         county_weights,

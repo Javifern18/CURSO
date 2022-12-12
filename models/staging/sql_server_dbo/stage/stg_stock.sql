@@ -1,5 +1,3 @@
--- Tabla de hechos de tipo SNAPSHOT (foto diaria)
-
 {{
     config(
         materialized='incremental',
@@ -8,20 +6,18 @@
     )
 }}
 
-with stock_snapshot as (   
-
+with products as (
     select 
         product_id,
         NK_product_id,
         product_name,
         stock,
-        {{timestamp_to_date_id(('_fivetran_synced'))}} as id_fecha,
         _fivetran_synced
-
-    from {{ ref('stg_stock') }}
+    
+    from {{ ref('base_products') }}
 )
 
-select * from stock_snapshot
+select * from products
 
 {% if is_incremental() %}
 

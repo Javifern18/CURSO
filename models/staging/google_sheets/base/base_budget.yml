@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: base_budget
+    description: ""
+    columns:
+      - name: budget_id
+        tests:
+          - unique
+        description: ""
+
+      - name: nk_budget_id
+        description: ""
+
+      - name: estimated_quantity
+        description: ""
+
+      - name: budget_date
+        description: ""
+
+      - name: nk_product_id
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""

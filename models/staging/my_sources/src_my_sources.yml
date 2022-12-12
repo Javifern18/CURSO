@@ -12,6 +12,9 @@ sources:
       - name: uszips
         columns:
           - name: zip
+            tests:
+              - unique
+              - not_null
             description: "Código postal"
           - name: lat
             description: "Latitud a la que corresponde el código ZIP"
@@ -52,6 +55,9 @@ sources:
         description: ""
         columns:
           - name: zip
+            tests:
+              - unique
+              - not_null
             description: "Código postal"
           - name: type
             description: "Tipo al que corresponde (único, standard, PO-Box o militar)"

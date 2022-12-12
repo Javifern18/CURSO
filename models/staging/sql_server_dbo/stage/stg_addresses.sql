@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['NK_address_id'],
+        tags=['incremental'] 
+    )
+}}
+
 with
     base_addresses as (select * from {{ ref("base_addresses") }}),
 
@@ -8,12 +16,13 @@ with
     addresses_uszips as (
         select 
             a.address_id,
+            a.NK_address_id,
             a.country,
             a.state,
             a.zipcode,
             z2.zipcode_type,   
             z.zip_code_tab_area,
-            z.parent_zcta,
+--            z.parent_zcta,
             a.address,
             a._fivetran_synced,
             case 
@@ -43,7 +52,7 @@ with
             z.county_fips,
             z.county_fips_all,  
             z.county_names_all,
-            z.county_weights,         
+--            z.county_weights,   (columna tipo variant)         
             case 
                 when z2.timezone is null then z.timezone
                 else z2.timezone
@@ -55,3 +64,9 @@ with
 )
 
 select * from addresses_uszips
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}
