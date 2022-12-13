@@ -29,6 +29,6 @@ select * from dim_users_today
 
 {% if is_incremental() %}
 
-  where NK_user_id in (select NK_user_id from dim_users_today where _fivetran_synced > (select max(_fivetran_synced) from {{ this }}))
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
 
 {% endif %}
